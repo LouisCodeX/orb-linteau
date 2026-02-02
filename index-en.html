@@ -1,274 +1,485 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Orb & Linteau – general masonry and full renovation company based in Béziers and throughout Hérault. Specialists in structural works and all heavy jobs: load‑bearing wall openings, terrace slabs and foundations, underpinning, complete renovations, craftsmanship." />
-    <meta name="keywords" content="masonry Hérault, renovation Béziers, Orb & Linteau, load‑bearing wall opening, IPN beam, structural work, slabs, foundations, underpinning, complete renovation, craftsman" />
-    <title>Orb & Linteau – Masonry & Renovation in Hérault</title>
-    <!-- Remove old font imports; fonts are defined in styles.css -->
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-u4hUQvQr+uZP7UG1QJnKik+Wg22ZF/Blw4SdpMkX63GKCGo/5gORwNuTriEbdUpxYBVPk49g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- Favicon for browser tab -->
-    <link rel="icon" href="logo_orb_linteau_simple.png" type="image/png" />
-    <!-- Open Graph image for social previews -->
-    <meta property="og:image" content="pattern_rustic.png" />
-    <meta name="twitter:image" content="pattern_rustic.png" />
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.png" type="image/png">
-</head>
-<body>
-    <header id="top">
-        <div class="header-container">
-            <!-- Logo linking back to top -->
-            <a href="#top" class="logo-wrapper logo-link">
-                <img src="logo_orb_linteau_simple.png" alt="Orb & Linteau logo" class="logo-img">
-                <span class="logo-text">Orb & Linteau</span>
-            </a>
-            <!-- Mobile navigation toggle (checkbox) and label for burger icon -->
-            <input type="checkbox" id="nav-toggle" class="nav-toggle">
-            <label for="nav-toggle" class="nav-toggle-label">
-                <i class="fas fa-bars"></i>
-            </label>
-            <!-- Navigation menu -->
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#blog">Blog / FAQ</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <!-- Language toggle: link back to French version -->
-                    <li><a href="index.html">FR</a></li>
-                </ul>
-            </nav>
-        </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Orb &amp; Linteau — Masonry &amp; bespoke renovations (Béziers / Hérault)</title>
+    <meta
+      name="description"
+      content="Structural masonry and tailor‑made renovations in Béziers and across Hérault: load‑bearing wall openings (IPN/HEB), foundations, terraces, bathrooms, kitchens and full renovations."
+    />
+
+    <link rel="canonical" href="https://www.orb-linteau.fr/index-en.html" />
+    <meta name="theme-color" content="#f6f1ea" />
+
+    <!-- Social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Orb &amp; Linteau" />
+    <meta property="og:title" content="Orb &amp; Linteau — Masonry &amp; renovations (Hérault)" />
+    <meta
+      property="og:description"
+      content="Structural masonry, interior & exterior renovations. Based in Béziers, serving Hérault (34)."
+    />
+    <meta property="og:url" content="https://www.orb-linteau.fr/index-en.html" />
+    <meta property="og:image" content="https://www.orb-linteau.fr/hero_bg.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "Orb & Linteau",
+        "url": "https://www.orb-linteau.fr/index-en.html",
+        "telephone": "+33695951631",
+        "email": "contact@orb-linteau.fr",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "63B Avenue du 22 Août",
+          "postalCode": "34500",
+          "addressLocality": "Béziers",
+          "addressCountry": "FR"
+        },
+        "areaServed": ["Hérault", "Béziers", "Marseillan", "Sète", "Agde"],
+        "openingHours": "Mo-Fr 08:00-18:00"
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Back to top">
+          <img class="brand-mark" src="favicon.png" alt="" width="42" height="42" />
+          <span class="brand-text">
+            <span class="brand-name">Orb &amp; Linteau</span>
+            <span class="brand-sub">Masonry &amp; renovations — Béziers &amp; Hérault (34)</span>
+          </span>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label class="nav-toggle-btn" for="nav-toggle" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </label>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <ul class="nav-menu">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#realisations">Projects</a></li>
+            <li><a href="#apropos">About</a></li>
+            <li><a href="#temoignages">Testimonials</a></li>
+            <li><a href="#blog">FAQ</a></li>
+            <li class="nav-cta"><a class="btn btn-primary" href="#contact">Quote</a></li>
+            <li>
+              <span class="lang-switch" aria-label="Language">
+                <a href="index.html">FR</a>
+                <span aria-hidden="true">/</span>
+                <a class="active" href="index-en.html">EN</a>
+              </span>
+            </li>
+          </ul>
+        </nav>
+
+        <label class="nav-overlay" for="nav-toggle" aria-hidden="true"></label>
+      </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Tailor‑made masonry & renovations in Hérault</h1>
-            <p class="hero-text">Based in Béziers, we imagine and deliver your bespoke projects: from structural wall openings, terrace slabs and foundations to complete bathrooms and kitchens, and full interior/exterior renovations. With over 15 years of experience investing in Hérault, we partner with trusted local artisans to ensure quality craftsmanship for homeowners and investors alike.</p>
-            <a href="#contact" class="cta-btn">Get a quote</a>
+    <main id="content">
+      <section class="hero" aria-label="Overview">
+        <div class="container hero-inner">
+          <h1>Tailor‑made masonry &amp; renovations in Hérault</h1>
+          <p class="lead">
+            Based in Béziers, we deliver bespoke projects: <strong>load‑bearing wall openings</strong>, terraces, foundations,
+            bathrooms, kitchens and full renovations. With 15+ years of property‑investment experience in Hérault, we work
+            with trusted local craftsmen to ensure clean execution and durable finishes.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Get a quote</a>
+            <a class="btn btn-ghost" href="tel:+33695951631">Call</a>
+          </div>
+
+          <div class="hero-proof" aria-label="Key points">
+            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Clean jobsite</span>
+            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Clear quote</span>
+            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Insured</span>
+            <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Béziers • Hérault (34)</span>
+          </div>
+
+          <div class="hero-card" aria-label="Quick contact">
+            <p class="micro">
+              <strong>Fast reply</strong> — call <a href="tel:+33695951631">+33&nbsp;6&nbsp;95&nbsp;95&nbsp;16&nbsp;31</a> or email
+              <a href="mailto:contact@orb-linteau.fr">contact@orb-linteau.fr</a>.
+            </p>
+            <div class="hero-card-row">
+              <span class="pill"><i class="fa-regular fa-clock" aria-hidden="true"></i> Mon–Fri 8am–6pm</span>
+              <span class="pill"><i class="fa-solid fa-map-pin" aria-hidden="true"></i> Béziers (34500)</span>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <h2>Our Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-tools"></i></div>
-                <h3>Structural masonry (specialized)</h3>
-                <ul>
-                    <li>Openings in load‑bearing walls</li>
-                    <li>Installation of steel beams (IPN/HEB) and lintel creation</li>
-                    <li>Underpinning, foundation beams (longrines) and slab foundations (radiers)</li>
-                    <li>Floor reinforcement and tying/strapping</li>
-                    <li>Retaining walls, crack repairs and chemical anchors</li>
-                    <li>Core drilling (large clean holes) and controlled demolition</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-bath"></i></div>
-                <h3>Interior renovation</h3>
-                <ul>
-                    <li>Complete bathrooms: plumbing, waterproof membranes, tiling</li>
-                    <li>Complete kitchens: installation, plumbing/electrical adaptations, splashbacks, worktops</li>
-                    <li>Partitions, drylining and suspended ceilings</li>
-                    <li>Floors: tiles, hardwood/laminate, vinyl, levelling compounds</li>
-                    <li>Painting, plasterwork and finishes</li>
-                    <li>Interior joinery: doors and built‑in storage</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-tree"></i></div>
-                <h3>Exteriors, terraces & facades</h3>
-                <ul>
-                    <li>Concrete/wood decks and terraces, exterior stairs and pathways</li>
-                    <li>Foundations for sheds/garages, low walls and planters</li>
-                    <li>Facades: rendering, restoration and water‑repellent treatments</li>
-                    <li>Perimeter drainage, inspection pits and drainage pipes</li>
-                    <li>Pool surrounds, fences and gates</li>
-                    <li>Exterior carpentry: windows, patio doors and shutters (installation and sill repair)</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-project-diagram"></i></div>
-                <h3>Turnkey projects & troubleshooting</h3>
-                <ul>
-                    <li>Full renovation of flats/houses from start to finish</li>
-                    <li>Attic conversions and space reconfiguration</li>
-                    <li>Electrical/plumbing upgrades to standards (with partner trades)</li>
-                    <li>Crack and damp diagnosis, waterproofing and basement tanking</li>
-                    <li>Small works: patching, local repairs, debris removal and site cleaning</li>
-                    <li>Technical reports & liaison with structural engineers (BET) if needed</li>
-                </ul>
-            </div>
+      <section id="services" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Services</h2>
+            <p class="section-sub">
+              From structural work to turnkey renovations — clean execution, clear scope, and one point of contact.
+            </p>
+          </div>
+
+          <div class="grid cards">
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-helmet-safety"></i></div>
+              <h3>Structural masonry</h3>
+              <ul>
+                <li>Openings in load‑bearing walls</li>
+                <li>Steel beam installation (IPN/HEB) and lintels</li>
+                <li>Underpinning, foundation beams (longrines) and raft slabs</li>
+                <li>Floor reinforcement and strapping</li>
+                <li>Retaining walls, crack repairs, chemical anchors</li>
+                <li>Core drilling and controlled demolition</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-shower"></i></div>
+              <h3>Interior renovation</h3>
+              <ul>
+                <li>Bathrooms: plumbing, waterproofing membranes, tiling</li>
+                <li>Kitchens: install + plumbing/electrical adjustments</li>
+                <li>Partitions, drylining and suspended ceilings</li>
+                <li>Floors: tiles, hardwood/laminate, vinyl, levelling</li>
+                <li>Painting, plasterwork and finishes</li>
+                <li>Interior joinery: doors and built‑in storage</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-sun"></i></div>
+              <h3>Exteriors &amp; facades</h3>
+              <ul>
+                <li>Concrete/wood terraces and decks, stairs, pathways</li>
+                <li>Foundations for sheds/garages, low walls and planters</li>
+                <li>Facades: render, restoration and water‑repellent treatments</li>
+                <li>Perimeter drainage and evacuations</li>
+                <li>Pool surrounds, fences and gates</li>
+                <li>Exterior joinery: windows, patio doors, shutters</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-key"></i></div>
+              <h3>Turnkey &amp; troubleshooting</h3>
+              <ul>
+                <li>Full renovations from start to finish</li>
+                <li>Attic conversions and space reconfiguration</li>
+                <li>Electrical/plumbing upgrades (with partners)</li>
+                <li>Crack/damp diagnosis, basement waterproofing</li>
+                <li>Small works and end‑of‑site cleaning</li>
+                <li>Technical files & liaison with engineers if needed</li>
+              </ul>
+            </article>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section-padding">
-        <h2>Recent Projects</h2>
-        <p class="section-description">A selection of recent work to showcase our expertise and attention to detail.</p>
-        <div class="portfolio-grid">
+      <section id="realisations" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Recent projects</h2>
+            <p class="section-sub">A few recent examples to show finish quality.</p>
+          </div>
+
+          <div class="portfolio-grid">
             <div class="portfolio-item">
-                <a href="salle_de_eau-en.html"><img src="project_bathroom_stylized.png" alt="Modern bathroom – Béziers" class="portfolio-img"></a>
-                <h3>Modern bathroom – Béziers</h3>
-                <p>Complete transformation of a bathroom with walk‑in shower, custom vanity and design features.</p>
-            </div>
-            <div class="portfolio-item">
-                <a href="piece_etroite_escalier-en.html"><img src="project_living_stylized.png" alt="Living room & staircase – Béziers" class="portfolio-img"></a>
-                <h3>Living room & staircase – Béziers</h3>
-                <p>Re‑arrangement of a narrow living room into a bright space with wooden staircase and contemporary furniture.</p>
-            </div>
-            <div class="portfolio-item">
-                <a href="cuisine_couloir-en.html"><img src="project_kitchen_stylized.png" alt="Contemporary kitchen – Béziers" class="portfolio-img"></a>
-                <h3>Contemporary kitchen – Béziers</h3>
-                <p>Installation of a functional kitchen with stone worktop, built‑in appliances and breakfast area.</p>
-            </div>
-            <div class="portfolio-item">
-                <a href="salon_combles-en.html"><img src="project_loft_stylized.png" alt="Loft living room" class="portfolio-img"></a>
-                <h3>Loft living room</h3>
-                <p>Creation of a cosy loft under the roof with roof‑top terrace offering panoramic views of the city.</p>
-            </div>
-            <div class="portfolio-item">
-                <a href="salon_combles-en.html"><img src="project_loft_stylized.png" alt="Rooftop terrace – Béziers" class="portfolio-img"></a>
-                <h3>Rooftop terrace – Béziers</h3>
-                <p>This roof terrace belongs to the same flat as the loft living room in Béziers and offers a panoramic view.</p>
-            </div>
-            <div class="portfolio-item">
-                <a href="patio_rdc-en.html"><img src="project_patio_stylized.png" alt="Flowered patio – Béziers" class="portfolio-img"></a>
-                <h3>Flowered patio – Béziers</h3>
-                <p>Fitting‑out of a cosy patio with built‑in bench and trellised plants for an intimate relaxation space.</p>
+              <a href="salle_de_eau-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_bathroom_stylized.png" alt="Modern bathroom — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Modern bathroom — Béziers</h4>
+                    <p>Walk‑in shower, waterproofing, clean finishes.</p>
+                  </div>
+                </div>
+              </a>
             </div>
 
-            <!-- New project: Marseillan roof terrace -->
             <div class="portfolio-item">
-                <a href="terrasse_marseillan-en.html"><img src="project_rooftop_stylized.png" alt="Marseillan roof terrace" class="portfolio-img"></a>
-                <h3>Marseillan roof terrace</h3>
-                <p>Creation of a roof‑top terrace in Marseillan with deck, trellis and pergola.</p>
+              <a href="piece_etroite_escalier-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_living_stylized.png" alt="Living room & staircase — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Living room &amp; staircase — Béziers</h4>
+                    <p>Space rework, wood staircase, crisp details.</p>
+                  </div>
+                </div>
+              </a>
             </div>
+
+            <div class="portfolio-item">
+              <a href="cuisine_couloir-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_kitchen_stylized.png" alt="Contemporary kitchen — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Contemporary kitchen — Béziers</h4>
+                    <p>Install + adjustments, splashback, worktops.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="portfolio-item">
+              <a href="salon_combles-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_loft_stylized.png" alt="Loft living room" />
+                  <div class="portfolio-caption">
+                    <h4>Loft living room</h4>
+                    <p>Cosy loft under the roof, contemporary vibe.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="portfolio-item">
+              <a href="salon_combles-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_rooftop_stylized.png" alt="Rooftop terrace — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Rooftop terrace — Béziers</h4>
+                    <p>Decking, privacy screen, clean lines.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="portfolio-item">
+              <a href="patio_rdc-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_patio_stylized.png" alt="Flowered patio — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Flowered patio — Béziers</h4>
+                    <p>Built‑in bench + trellis for a cosy corner.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="portfolio-item">
+              <a href="terrasse_marseillan-en.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_rooftop_stylized.png" alt="Marseillan roof terrace" />
+                  <div class="portfolio-caption">
+                    <h4>Marseillan roof terrace</h4>
+                    <p>Wood deck, privacy trellis and pergola.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- About Section -->
-    <section id="about" class="section-padding">
-        <h2>About Us</h2>
-        <p>Based in Béziers, we are master masons and renovation specialists serving the entire Hérault region. We combine decades of investment experience in local property with traditional know‑how and modern techniques to deliver exemplary projects.</p>
-        <ul class="about-list">
-            <li>Team of passionate artisans based in Béziers</li>
-            <li>Over 15 years of experience investing in Hérault</li>
-            <li>Collaboration with vetted local craftsmen</li>
-            <li>Ten‑year warranty and liability insurance</li>
-            <li>Transparent quotes and budget control</li>
-            <li>Respect for deadlines and clean work sites</li>
-        </ul>
-    </section>
+      <section id="apropos" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">About</h2>
+            <p class="section-sub">Clear scope, trusted craftsmen, clean finishes.</p>
+          </div>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section-padding">
-        <h2>Testimonials</h2>
-        <div class="testimonials-grid">
+          <div class="about-wrap">
+            <img class="about-portrait" src="founder_portrait.png" alt="Founder portrait" loading="lazy" />
+            <div>
+              <p class="section-sub">
+                We build durable and harmonious spaces. Our mission: bring craftsmanship and high standards to every
+                project, with a smooth, transparent experience.
+              </p>
+              <ul class="about-highlights">
+                <li><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Local team based in Béziers</li>
+                <li><i class="fa-solid fa-handshake" aria-hidden="true"></i> 15+ years of local property experience</li>
+                <li><i class="fa-solid fa-users" aria-hidden="true"></i> Vetted local trades</li>
+                <li><i class="fa-solid fa-certificate" aria-hidden="true"></i> Liability + ten‑year insurance</li>
+                <li><i class="fa-solid fa-user-tie" aria-hidden="true"></i> One point of contact</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="temoignages" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Testimonials</h2>
+            <p class="section-sub">Short, concrete feedback — focused on results.</p>
+          </div>
+
+          <div class="testimonials-grid">
             <div class="testimonial">
-                <p>“Serious company and impeccable workmanship! Our load‑bearing wall was opened without any cracks and the finishes are perfect.”</p>
-                <span class="author">— Jean M., Béziers</span>
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <p>“Our terrace was delivered perfectly: clean jobsite, realistic timeline, impeccable finishes.”</p>
+              <div class="client-info">
+                <span class="client-initials">C</span>
+                <span class="client-name">Camille — Béziers</span>
+              </div>
             </div>
             <div class="testimonial">
-                <p>“We entrusted the creation of our terrace to Orb & Linteau. The result: a magnificent terrace, clean site and friendly team.”</p>
-                <span class="author">— Sophie L., Agde</span>
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <p>“The load‑bearing wall opening transformed our living room. Great advice and great execution.”</p>
+              <div class="client-info">
+                <span class="client-initials">J</span>
+                <span class="client-name">Julien — Marseillan</span>
+              </div>
             </div>
             <div class="testimonial">
-                <p>“I was worried about the underpinning work, but everything went perfectly. I recommend them 100%.”</p>
-                <span class="author">— Ahmed B., Sète</span>
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <p>“Serious work on our foundations. I highly recommend Orb &amp; Linteau.”</p>
+              <div class="client-info">
+                <span class="client-initials">S</span>
+                <span class="client-name">Sophie — Sète</span>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Blog/FAQ Section -->
-    <section id="blog" class="blog">
-        <h2>Blog &amp; FAQ</h2>
-        <div class="blog-grid">
-            <div class="blog-card">
-                <h3>How to prepare for opening a load‑bearing wall?</h3>
-                <p>Discover the key steps and precautions to take before creating an opening in a load‑bearing wall…</p>
-                <a href="#" class="read-more">Read the article</a>
-            </div>
-            <div class="blog-card">
-                <h3>The cost of a concrete slab in Hérault</h3>
-                <p>Factors to consider when estimating the price of a slab based on its surface area, thickness and preparation…</p>
-                <a href="#" class="read-more">Read the article</a>
-            </div>
-            <div class="blog-card">
-                <h3>Renovating an old farmhouse: pitfalls and best practices</h3>
-                <p>What you need to know before renovating an old farmhouse and preserving its character while bringing everything up to standard…</p>
-                <a href="#" class="read-more">Read the article</a>
-            </div>
-            <div class="blog-card">
-                <h3>Choosing your mason in Hérault</h3>
-                <p>How to select a trusted mason: check references, verify insurance and compare detailed quotes…</p>
-                <a href="#" class="read-more">Read the article</a>
-            </div>
-            <div class="blog-card">
-                <h3>Maintaining a wooden terrace</h3>
-                <p>Simple tips for cleaning, oiling and maintaining your wooden terrace to withstand the Mediterranean climate…</p>
-                <a href="#" class="read-more">Read the article</a>
-            </div>
-            <div class="blog-card">
-                <h3>Renovating your kitchen: steps and tips</h3>
-                <p>From design to installation, discover the key stages of renovating a kitchen and choosing the right materials…</p>
-                <a href="#" class="read-more">Read the article</a>
-            </div>
+          <div class="testimonials-cta">
+            <a href="https://g.page/orb-linteau/reviews" target="_blank" rel="noreferrer">Read more reviews</a>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section-padding">
-        <h2>Contact us</h2>
-        <div class="contact-wrap">
-            <form class="contact-form" action="mailto:contact@orb-linteau.fr" method="post" enctype="text/plain">
+      <section id="blog" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">FAQ</h2>
+            <p class="section-sub">Most common questions before starting a project.</p>
+          </div>
+
+          <div class="faq" role="list">
+            <details>
+              <summary>How do you open a load‑bearing wall safely?</summary>
+              <p>
+                We start with a structural assessment, then size the beam (IPN/HEB) and secure the work area. Goal:
+                a clean opening with proper supports and neat repairs.
+              </p>
+            </details>
+            <details>
+              <summary>How much does a concrete slab cost?</summary>
+              <p>
+                It depends on surface, thickness, prep (groundworks, rebar), and site access. We provide a clear quote
+                with options if needed.
+              </p>
+            </details>
+            <details>
+              <summary>How long does underpinning work take?</summary>
+              <p>
+                Depending on complexity and scope, it can range from a few weeks to several months. We phase the work to
+                keep the structure safe.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-sub">Share your scope (photos and measurements if possible). We reply quickly.</p>
+          </div>
+
+          <div class="contact-wrap">
+            <form class="contact-form" id="quote-form" data-mailto="contact@orb-linteau.fr" data-lang="en">
+              <div class="form-step form-step-1">
                 <div class="form-group">
-                    <label for="name">Name :</label>
-                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                  <label for="project-type">Project type</label>
+                  <input type="text" id="project-type" name="project-type" placeholder="Load‑bearing wall, slab, kitchen…" required />
                 </div>
                 <div class="form-group">
-                    <label for="email">Email :</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                  <label for="budget">Estimated budget</label>
+                  <select id="budget" name="budget" required>
+                    <option value="">Select</option>
+                    <option value="<10k">Under €10,000</option>
+                    <option value="10-30k">€10,000 – €30,000</option>
+                    <option value="30-50k">€30,000 – €50,000</option>
+                    <option value="plus50k">Over €50,000</option>
+                  </select>
+                </div>
+                <div class="form-navigation">
+                  <span class="pill"><i class="fa-regular fa-envelope" aria-hidden="true"></i> Email (no server)</span>
+                  <button type="button" class="btn btn-primary" id="next-step">Next</button>
+                </div>
+              </div>
+
+              <div class="form-step form-step-2" style="display: none">
+                <div class="form-group">
+                  <label for="name">Full name</label>
+                  <input type="text" id="name" name="name" autocomplete="name" required />
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone :</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+33 6 95 95 16 31" required>
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" autocomplete="email" required />
                 </div>
                 <div class="form-group">
-                    <label for="project">Project type :</label>
-                    <input type="text" id="project" name="project" placeholder="Describe your project (wall opening, slab, kitchen, bathroom, etc.)" required>
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel" required />
                 </div>
                 <div class="form-group">
-                    <label for="message">Message :</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Tell us more about your project…"></textarea>
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="4" placeholder="Address, constraints, timeline…"></textarea>
                 </div>
-                <button type="submit" class="cta-btn">Send request</button>
+                <div class="form-navigation">
+                  <button type="button" id="prev-step" class="btn btn-secondary">Back</button>
+                  <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+              </div>
             </form>
+
             <div class="contact-info">
-                <p><strong>Phone :</strong> <a href="tel:+33695951631">+33 6 95 95 16 31</a></p>
-                <p><strong>Email :</strong> <a href="mailto:contact@orb-linteau.fr">contact@orb‑linteau.fr</a></p>
-                <p><strong>Address :</strong> 63B Avenue du 22 Août, 34500 Béziers, France</p>
-                <p><strong>Opening hours :</strong> Monday to Friday, 8 am – 6 pm</p>
+              <p><i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+33695951631">+33 6 95 95 16 31</a></p>
+              <p><i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:contact@orb-linteau.fr">contact@orb‑linteau.fr</a></p>
+              <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> 63B Avenue du 22 Août, 34500 Béziers</p>
+              <p><i class="fa-regular fa-clock" aria-hidden="true"></i> Mon–Fri: 8am–6pm</p>
+              <div class="contact-actions">
+                <a
+                  class="btn btn-ghost"
+                  href="https://www.google.com/maps/search/?api=1&query=63B%20Avenue%20du%2022%20Ao%C3%BBt%2034500%20B%C3%A9ziers"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open in Maps
+                </a>
+                <a class="btn btn-ghost" href="legal.html">Legal notice</a>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
+    </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Orb & Linteau. All rights reserved.</p>
-            <p><a href="#top">Back to top</a> · <a href="legal.html">Legal notice</a> · <a href="#">Privacy policy</a></p>
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Orb &amp; Linteau · SIRET: 889 064 861 00012</div>
+        <div class="footer-links">
+          <a href="#top">Back to top</a>
+          <span aria-hidden="true">·</span>
+          <a href="legal.html">Legal notice</a>
         </div>
+      </div>
     </footer>
-</body>
+
+    <script src="site.js" defer></script>
+  </body>
 </html>

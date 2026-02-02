@@ -1,326 +1,508 @@
-<!--
-  This file represents the updated home page for the Orb & Linteau masonry and renovation company.
-  It is based off the original French index but incorporates several design improvements:
-    * A clearer visual hierarchy with a lighter hero overlay and a secondary accent colour for buttons.
-    * Service cards broken into easy‑to‑scan bullet lists with a separate line for typical durations.
-    * Portfolio captions with a lighter overlay for a more modern feel.
-  The overall structure of the page has been maintained to ensure compatibility with existing CSS and JavaScript.
--->
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orb & Linteau – Maçonnerie et rénovations sur mesure en Hérault</title>
-    <meta name="description" content="Orb & Linteau est une entreprise de maçonnerie et de rénovation basée à Béziers, spécialisée dans les ouvertures de murs porteurs, dalles et fondations, reprises en sous‑œuvre et rénovations complètes. Nous intervenons dans tout l’Hérault auprès des particuliers et des investisseurs." />
-    <meta name="keywords" content="maçonnerie Béziers, rénovation Hérault, ouverture de murs porteurs, fondations, sous‑œuvre, rénovations intérieures, façades, terrasses" />
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dyZ8N6CBhQ1B5QG1e4k2oI9cFl5q3t+8p0hC3sU8T8aLKZr9uC/3mKf7y+7IcI7cMwjY4X0PpVA+Slr7ZfXp3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Favicon for browser tab -->
-    <link rel="icon" href="logo_orb_linteau_simple.png" type="image/png" />
+    <title>Orb &amp; Linteau — Maçonnerie &amp; rénovations sur mesure (Béziers / Hérault)</title>
+    <meta
+      name="description"
+      content="Maçonnerie structurelle et rénovations sur mesure à Béziers et dans tout l’Hérault : murs porteurs (IPN/HEB), fondations, terrasses, salles de bain, cuisines, rénovations complètes."
+    />
 
-    <!-- Open Graph image for social previews -->
-    <meta property="og:image" content="pattern_rustic.png" />
-    <meta name="twitter:image" content="pattern_rustic.png" />
-</head>
-<body>
-    <!-- Language toggle (added in French version) -->
-    <div class="language-toggle">
-        <a href="index.html" class="active">FR</a> / <a href="index-en.html">EN</a>
-    </div>
-    <header>
-        <div class="container">
-            <h1 class="logo">Orb & Linteau</h1>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#realisations">Réalisations</a></li>
-                    <li><a href="#apropos">À propos</a></li>
-                    <li><a href="#temoignages">Témoignages</a></li>
-                    <li><a href="#blog">Blog / FAQ</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+    <link rel="canonical" href="https://www.orb-linteau.fr/" />
+    <meta name="theme-color" content="#f6f1ea" />
+
+    <!-- Social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Orb &amp; Linteau" />
+    <meta property="og:title" content="Orb &amp; Linteau — Maçonnerie &amp; rénovations sur mesure (Hérault)" />
+    <meta
+      property="og:description"
+      content="Maçonnerie structurelle, rénovations intérieures/extérieur. Basés à Béziers, intervention dans tout l’Hérault."
+    />
+    <meta property="og:url" content="https://www.orb-linteau.fr/" />
+    <meta property="og:image" content="https://www.orb-linteau.fr/hero_bg.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Icons (optional, for the few UI icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Local business schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "Orb & Linteau",
+        "url": "https://www.orb-linteau.fr/",
+        "telephone": "+33695951631",
+        "email": "contact@orb-linteau.fr",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "63B Avenue du 22 Août",
+          "postalCode": "34500",
+          "addressLocality": "Béziers",
+          "addressCountry": "FR"
+        },
+        "areaServed": ["Hérault", "Béziers", "Marseillan", "Sète", "Agde"],
+        "openingHours": "Mo-Fr 08:00-18:00"
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Retour en haut">
+          <img class="brand-mark" src="favicon.png" alt="" width="42" height="42" />
+          <span class="brand-text">
+            <span class="brand-name">Orb &amp; Linteau</span>
+            <span class="brand-sub">Maçonnerie &amp; rénovations — Béziers &amp; Hérault</span>
+          </span>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label class="nav-toggle-btn" for="nav-toggle" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </label>
+
+        <nav class="nav" aria-label="Navigation principale">
+          <ul class="nav-menu">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#realisations">Réalisations</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#temoignages">Témoignages</a></li>
+            <li><a href="#blog">FAQ</a></li>
+            <li class="nav-cta"><a class="btn btn-primary" href="#contact">Devis</a></li>
+            <li>
+              <span class="lang-switch" aria-label="Choix de la langue">
+                <a class="active" href="index.html">FR</a>
+                <span aria-hidden="true">/</span>
+                <a href="index-en.html">EN</a>
+              </span>
+            </li>
+          </ul>
+        </nav>
+
+        <label class="nav-overlay" for="nav-toggle" aria-hidden="true"></label>
+      </div>
     </header>
-    <!-- Hero section with lighter overlay -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Maçonnerie & rénovations sur mesure en Hérault</h1>
-            <p>Basés à Béziers, nous imaginons et réalisons vos projets : ouvertures de murs porteurs, création de terrasses et de fondations, aménagements complets de salles de bain et de cuisines, ainsi que toutes vos rénovations intérieures et extérieures. Forte de plus de 15 ans d’expérience d’investisseur en Hérault, notre équipe travaille avec des artisans triés sur le volet pour des réalisations soignées et durables.</p>
-            <a href="#contact" class="cta-btn">Obtenir un devis</a>
+
+    <main id="contenu">
+      <section class="hero" aria-label="Présentation">
+        <div class="container hero-inner">
+          <h1>Maçonnerie &amp; rénovations sur mesure en Hérault</h1>
+          <p class="lead">
+            Basés à Béziers, nous imaginons et réalisons vos projets : <strong>ouvertures de murs porteurs</strong>, terrasses,
+            fondations, salles de bain, cuisines, et rénovations complètes. Notre équipe s’appuie sur plus de 15 ans
+            d’expérience d’investisseur en Hérault et sur des artisans triés sur le volet pour un rendu soigné et durable.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Obtenir un devis</a>
+            <a class="btn btn-ghost" href="tel:+33695951631">Appeler</a>
+          </div>
+
+          <div class="hero-proof" aria-label="Points forts">
+            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Chantier propre</span>
+            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Devis clair</span>
+            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> RC Pro &amp; décennale</span>
+            <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Béziers • Hérault (34)</span>
+          </div>
+
+          <div class="hero-card" aria-label="Contact rapide">
+            <p class="micro">
+              <strong>Réponse rapide</strong> — appelez au <a href="tel:+33695951631">06&nbsp;95&nbsp;95&nbsp;16&nbsp;31</a> ou
+              écrivez à <a href="mailto:contact@orb-linteau.fr">contact@orb-linteau.fr</a>.
+            </p>
+            <div class="hero-card-row">
+              <span class="pill"><i class="fa-regular fa-clock" aria-hidden="true"></i> Lun–Ven 8h–18h</span>
+              <span class="pill"
+                ><i class="fa-solid fa-map-pin" aria-hidden="true"></i> 63B Av. du 22 Août, Béziers</span
+              >
+            </div>
+          </div>
         </div>
-    </section>
-    <!-- Services section with bullet lists -->
-    <section id="services" class="services">
-        <h2>Nos services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-tools"></i></div>
-                <h3>Maçonnerie structurelle</h3>
-                <ul>
-                    <li>Ouvertures dans murs porteurs</li>
-                    <li>Pose d’IPN/HEB et création de linteaux</li>
-                    <li>Reprises en sous‑œuvre, longrines et radiers</li>
-                    <li>Renforcement de planchers, ceinturage/chaînage</li>
-                    <li>Murs de soutènement, reprises de fissures, scellements chimiques</li>
-                    <li>Carottages de gros diamètre et démolitions contrôlées</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-bath"></i></div>
-                <h3>Rénovation intérieure</h3>
-                <ul>
-                    <li>Salles de bain complètes : plomberie, étanchéité SPEC, carrelage/faïence</li>
-                    <li>Cuisines complètes : pose, adaptations plomberie/élec, crédences, plans de travail</li>
-                    <li>Cloisons, doublages et faux‑plafonds</li>
-                    <li>Sols : carrelage, parquet/stratifié, vinyle, ragréage</li>
-                    <li>Peinture, enduits et finitions</li>
-                    <li>Menuiseries intérieures : portes, rangements</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-tree"></i></div>
-                <h3>Extérieurs, terrasses & façades</h3>
-                <ul>
-                    <li>Dalles et terrasses béton/bois, escaliers extérieurs, allées</li>
-                    <li>Fondations pour abris/garages, murets et jardinières</li>
-                    <li>Façades : enduits, ravalement, hydrofuge</li>
-                    <li>Drainage périphérique, regards et évacuations</li>
-                    <li>Plages de piscine, clôtures et portails</li>
-                    <li>Menuiseries extérieures : fenêtres, baies, volets</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-project-diagram"></i></div>
-                <h3>Projets clé‑en‑main & dépannages</h3>
-                <ul>
-                    <li>Rénovation d’appartements/maisons de A à Z</li>
-                    <li>Aménagement de combles et redistribution d’espaces</li>
-                    <li>Mise aux normes électricité/plomberie</li>
-                    <li>Diagnostic fissures & humidité, cuvelage de sous‑sol</li>
-                    <li>Petits travaux : rebouchages, reprises, nettoyage fin de chantier</li>
-                    <li>Dossiers techniques & BET si nécessaire</li>
-                </ul>
-            </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Nos services</h2>
+            <p class="section-sub">
+              Du gros œuvre à la rénovation complète : un interlocuteur unique, un rendu propre, et des décisions simples.
+            </p>
+          </div>
+
+          <div class="grid cards">
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-helmet-safety"></i></div>
+              <h3>Maçonnerie structurelle</h3>
+              <ul>
+                <li>Ouvertures dans murs porteurs</li>
+                <li>Pose d’IPN/HEB et création de linteaux</li>
+                <li>Reprises en sous‑œuvre, longrines et radiers</li>
+                <li>Renforcement de planchers, ceinturage/chaînage</li>
+                <li>Murs de soutènement, reprises de fissures, scellements chimiques</li>
+                <li>Carottages de gros diamètre et démolitions contrôlées</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-shower"></i></div>
+              <h3>Rénovation intérieure</h3>
+              <ul>
+                <li>Salles de bain complètes : plomberie, étanchéité SPEC, carrelage/faïence</li>
+                <li>Cuisines complètes : pose, adaptations plomberie/élec, crédences, plans de travail</li>
+                <li>Cloisons, doublages et faux‑plafonds</li>
+                <li>Sols : carrelage, parquet/stratifié, vinyle, ragréage</li>
+                <li>Peinture, enduits et finitions</li>
+                <li>Menuiseries intérieures : portes, rangements</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-sun"></i></div>
+              <h3>Extérieurs, terrasses &amp; façades</h3>
+              <ul>
+                <li>Dalles et terrasses béton/bois, escaliers extérieurs, allées</li>
+                <li>Fondations pour abris/garages, murets et jardinières</li>
+                <li>Façades : enduits, ravalement, hydrofuge</li>
+                <li>Drainage périphérique, regards et évacuations</li>
+                <li>Plages de piscine, clôtures et portails</li>
+                <li>Menuiseries extérieures : fenêtres, baies, volets</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="icon" aria-hidden="true"><i class="fa-solid fa-key"></i></div>
+              <h3>Projets clé‑en‑main &amp; dépannages</h3>
+              <ul>
+                <li>Rénovation d’appartements/maisons de A à Z</li>
+                <li>Aménagement de combles et redistribution d’espaces</li>
+                <li>Mise aux normes électricité/plomberie</li>
+                <li>Diagnostic fissures &amp; humidité, cuvelage de sous‑sol</li>
+                <li>Petits travaux : rebouchages, reprises, nettoyage fin de chantier</li>
+                <li>Dossiers techniques &amp; BET si nécessaire</li>
+              </ul>
+            </article>
+          </div>
         </div>
-    </section>
-    <!-- Portfolio section -->
-    <section id="realisations" class="portfolio">
-        <h2>Réalisations récentes</h2>
-        <div class="portfolio-grid">
+      </section>
+
+      <section id="realisations" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Réalisations récentes</h2>
+            <p class="section-sub">Quelques projets récents pour illustrer le niveau de finition.</p>
+          </div>
+
+          <div class="portfolio-grid">
             <div class="portfolio-item">
-                <a href="salle_de_eau.html"><img src="project_bathroom_stylized.png" alt="Salle de bain moderne – Béziers"></a>
-                <div class="portfolio-caption">
-                    <h4>Salle de bain moderne – Béziers</h4>
-                    <p>Transformation complète d’une salle d’eau avec douche à l’italienne, receveur sur mesure et équipements design.</p>
+              <a href="salle_de_eau.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_bathroom_stylized.png" alt="Salle de bain moderne — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Salle de bain moderne — Béziers</h4>
+                    <p>Douche à l’italienne, receveur sur mesure, équipements design.</p>
+                  </div>
                 </div>
+              </a>
             </div>
+
             <div class="portfolio-item">
-                <a href="piece_etroite_escalier.html"><img src="project_living_stylized.png" alt="Salon & escalier – Béziers"></a>
-                <div class="portfolio-caption">
-                    <h4>Salon &amp; escalier – Béziers</h4>
-                    <p>Réaménagement d’un séjour étroit en espace lumineux avec escalier en bois et mobilier contemporain.</p>
+              <a href="piece_etroite_escalier.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_living_stylized.png" alt="Salon & escalier — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Salon &amp; escalier — Béziers</h4>
+                    <p>Séjour réaménagé en espace lumineux, escalier bois, finitions nettes.</p>
+                  </div>
                 </div>
+              </a>
             </div>
+
             <div class="portfolio-item">
-                <a href="cuisine_couloir.html"><img src="project_kitchen_stylized.png" alt="Cuisine contemporaine – Béziers"></a>
-                <div class="portfolio-caption">
-                    <h4>Cuisine contemporaine – Béziers</h4>
-                    <p>Installation d’une cuisine fonctionnelle avec plan de travail en pierre, électroménager intégrable et coin repas.</p>
+              <a href="cuisine_couloir.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_kitchen_stylized.png" alt="Cuisine contemporaine — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Cuisine contemporaine — Béziers</h4>
+                    <p>Pose, adaptations, crédence, plans de travail, intégrations.</p>
+                  </div>
                 </div>
+              </a>
             </div>
+
             <div class="portfolio-item">
-                <a href="salon_combles.html"><img src="project_loft_stylized.png" alt="Salon sous combles"></a>
-                <div class="portfolio-caption">
+              <a href="salon_combles.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_loft_stylized.png" alt="Salon sous combles" />
+                  <div class="portfolio-caption">
                     <h4>Salon sous combles</h4>
-                    <p>Création d’un loft chaleureux sous toiture avec terrasse tropézienne offrant une vue panoramique sur les toits.</p>
+                    <p>Loft chaleureux sous toiture, ambiance contemporaine.</p>
+                  </div>
                 </div>
+              </a>
             </div>
+
             <div class="portfolio-item">
-                <a href="salon_combles.html"><img src="project_loft_stylized.png" alt="Terrasse vue toits – Béziers"></a>
-                <div class="portfolio-caption">
-                    <h4>Terrasse vue toits – Béziers</h4>
-                    <p>Aménagement d’une terrasse tropézienne faisant partie du même appartement que le salon sous combles.</p>
+              <a href="salon_combles.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_rooftop_stylized.png" alt="Terrasse vue toits — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Terrasse vue toits — Béziers</h4>
+                    <p>Terrasse tropézienne, garde‑vue, détails et finitions.</p>
+                  </div>
                 </div>
+              </a>
             </div>
+
             <div class="portfolio-item">
-                <a href="patio_rdc.html"><img src="project_patio_stylized.png" alt="Patio fleuri – Béziers"></a>
-                <div class="portfolio-caption">
-                    <h4>Patio fleuri – Béziers</h4>
-                    <p>Aménagement d’un patio cosy avec banquette en bois et treillage fleuri pour un espace détente intimiste.</p>
+              <a href="patio_rdc.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_patio_stylized.png" alt="Patio fleuri — Béziers" />
+                  <div class="portfolio-caption">
+                    <h4>Patio fleuri — Béziers</h4>
+                    <p>Banquette bois, treillage fleuri : un coin détente cosy.</p>
+                  </div>
                 </div>
+              </a>
             </div>
-            <!-- Nouveau projet : terrasse à Marseillan -->
+
             <div class="portfolio-item">
-                <a href="terrasse_marseillan.html"><img src="project_rooftop_stylized.png" alt="Terrasse à Marseillan"></a>
-                <div class="portfolio-caption">
-                    <h4>Terrasse à Marseillan</h4>
-                    <p>Création d’une terrasse sur les toits à Marseillan avec platelage bois, treillis garde‑vue et pergola.</p>
+              <a href="terrasse_marseillan.html">
+                <div class="portfolio-frame">
+                  <img loading="lazy" src="project_rooftop_stylized.png" alt="Terrasse à Marseillan" />
+                  <div class="portfolio-caption">
+                    <h4>Terrasse à Marseillan</h4>
+                    <p>Platelage bois, treillis garde‑vue et pergola.</p>
+                  </div>
                 </div>
+              </a>
             </div>
+          </div>
         </div>
-    </section>
-    <!-- About section -->
-    <section id="apropos" class="about">
-        <div class="about-content">
-            <img src="founder_portrait.png" alt="Portrait du fondateur" class="about-portrait">
-            <h2>À propos de nous</h2>
-            <p>Depuis plus de 15 ans, nous bâtissons des espaces durables et harmonieux pour nos clients. <strong>Notre mission</strong> : mettre notre savoir‑faire au service de vos projets, avec passion et exigence.</p>
-            <ul class="about-highlights">
-                <li><i class="fas fa-check-circle"></i> Équipe d’artisans passionnés basée à Béziers</li>
-                <li><i class="fas fa-handshake"></i> Plus de 15 ans d’expérience d’investisseur dans l’Hérault</li>
-                <li><i class="fas fa-users"></i> Collaboration avec des artisans locaux triés sur le volet</li>
-                <li><i class="fas fa-certificate"></i> Certifications et assurances RC Pro &amp; décennale</li>
-                <li><i class="fas fa-user-tie"></i> Interlocuteur unique pour un suivi personnalisé</li>
-            </ul>
+      </section>
+
+      <section id="apropos" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">À propos</h2>
+            <p class="section-sub">Un suivi carré, des artisans fiables, et des finitions propres.</p>
+          </div>
+
+          <div class="about-wrap">
+            <img class="about-portrait" src="founder_portrait.png" alt="Portrait du fondateur" loading="lazy" />
+
+            <div>
+              <p class="section-sub">
+                Depuis plus de 15 ans, nous bâtissons des espaces durables et harmonieux. Notre mission : mettre notre
+                savoir‑faire au service de vos projets, avec passion et exigence.
+              </p>
+
+              <ul class="about-highlights">
+                <li><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Équipe d’artisans passionnés basée à Béziers</li>
+                <li><i class="fa-solid fa-handshake" aria-hidden="true"></i> 15+ ans d’expérience d’investisseur dans l’Hérault</li>
+                <li><i class="fa-solid fa-users" aria-hidden="true"></i> Artisans locaux triés sur le volet</li>
+                <li><i class="fa-solid fa-certificate" aria-hidden="true"></i> Assurances RC Pro &amp; décennale</li>
+                <li><i class="fa-solid fa-user-tie" aria-hidden="true"></i> Interlocuteur unique et suivi personnalisé</li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </section>
-    <!-- Testimonials section (unchanged for brevity) -->
-    <section id="temoignages" class="testimonials">
-        <h2>Ils nous ont fait confiance</h2>
-        <div class="testimonials-grid">
+      </section>
+
+      <section id="temoignages" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Témoignages</h2>
+            <p class="section-sub">Des retours courts, concrets, orientés “résultat”.</p>
+          </div>
+
+          <div class="testimonials-grid">
             <div class="testimonial">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>« La création de notre terrasse a été parfaitement menée : chantier propre, délais respectés et finitions impeccables. »</p>
-                <div class="client-info">
-                    <span class="client-initials">C</span>
-                    <span class="client-name">Camille – Béziers</span>
-                </div>
+              <div class="stars" aria-label="5 étoiles">★★★★★</div>
+              <p>« La création de notre terrasse a été parfaitement menée : chantier propre, délais respectés et finitions impeccables. »</p>
+              <div class="client-info">
+                <span class="client-initials">C</span>
+                <span class="client-name">Camille — Béziers</span>
+              </div>
             </div>
+
             <div class="testimonial">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>« L’ouverture du mur porteur a transformé notre séjour. L’équipe est à l’écoute et a su nous conseiller. »</p>
-                <div class="client-info">
-                    <span class="client-initials">J</span>
-                    <span class="client-name">Julien – Marseillan</span>
-                </div>
+              <div class="stars" aria-label="5 étoiles">★★★★★</div>
+              <p>« L’ouverture du mur porteur a transformé notre séjour. L’équipe est à l’écoute et a su nous conseiller. »</p>
+              <div class="client-info">
+                <span class="client-initials">J</span>
+                <span class="client-name">Julien — Marseillan</span>
+              </div>
             </div>
+
             <div class="testimonial">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>« Travail sérieux pour la reprise de nos fondations. Je recommande Orb & Linteau pour leur professionnalisme ! »</p>
-                <div class="client-info">
-                    <span class="client-initials">S</span>
-                    <span class="client-name">Sophie – Sète</span>
-                </div>
+              <div class="stars" aria-label="5 étoiles">★★★★★</div>
+              <p>« Travail sérieux pour la reprise de nos fondations. Je recommande Orb &amp; Linteau pour leur professionnalisme ! »</p>
+              <div class="client-info">
+                <span class="client-initials">S</span>
+                <span class="client-name">Sophie — Sète</span>
+              </div>
             </div>
+          </div>
+
+          <div class="testimonials-cta">
+            <a href="https://g.page/orb-linteau/reviews" target="_blank" rel="noreferrer">Voir plus d’avis</a>
+          </div>
         </div>
-        <div class="testimonials-cta">
-            <a href="https://g.page/orb-linteau/reviews" target="_blank">Voir plus de témoignages</a>
+      </section>
+
+      <section id="blog" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">FAQ</h2>
+            <p class="section-sub">Les questions les plus fréquentes avant de démarrer un chantier.</p>
+          </div>
+
+          <div class="faq" role="list">
+            <details>
+              <summary>Comment créer une ouverture dans un mur porteur ?</summary>
+              <p>
+                On commence par un diagnostic (structure, charges), puis on dimensionne le renfort (IPN/HEB) et on sécurise
+                le chantier. L’objectif : une ouverture propre, sans fissures, avec reprises soignées.
+              </p>
+            </details>
+            <details>
+              <summary>Quel est le coût d’une dalle de béton ?</summary>
+              <p>
+                Le prix dépend de la surface, de l’épaisseur, de la préparation (terrassement, hérisson, ferraillage), et
+                de l’accès au chantier. Nous proposons un devis clair avec options si besoin.
+              </p>
+            </details>
+            <details>
+              <summary>Quelle est la durée d’un chantier de reprise en sous‑œuvre ?</summary>
+              <p>
+                Selon la complexité et l’ampleur, cela peut aller de quelques semaines à plusieurs mois. Les étapes sont
+                cadrées (phasage) pour sécuriser la structure.
+              </p>
+            </details>
+          </div>
         </div>
-    </section>
-    <!-- Blog & FAQ section (shortened posts) -->
-    <section id="blog" class="blog">
-        <h2>Blog &amp; FAQ</h2>
-        <div class="blog-grid">
-            <div class="blog-card">
-                <h3>Comment créer une ouverture dans un mur porteur ?</h3>
-                <p>Découvrez les étapes clés et les précautions à prendre pour ouvrir un mur porteur en toute sécurité…</p>
-                <a href="#" class="read-more">Lire l’article</a>
-            </div>
-            <div class="blog-card">
-                <h3>Quel est le coût d’une dalle de béton ?</h3>
-                <p>Les facteurs à considérer pour estimer le prix d’une dalle selon sa surface, son épaisseur et sa préparation…</p>
-                <a href="#" class="read-more">Lire l’article</a>
-            </div>
-            <div class="blog-card">
-                <h3>Quelle est la durée d’un chantier de reprise en sous‑œuvre ?</h3>
-                <p>Selon la complexité de la structure et l’ampleur des travaux, la durée peut varier de quelques semaines à plusieurs mois…</p>
-                <a href="#" class="read-more">Lire l’article</a>
-            </div>
-        </div>
-    </section>
-    <!-- Contact section (kept simple) -->
-    <section id="contact" class="contact">
-        <h2>Contactez‑nous</h2>
-        <div class="contact-wrap">
-            <form class="contact-form" id="quote-form">
-                <div class="form-step form-step-1">
-                    <div class="form-group">
-                        <label for="project-type">Type de projet</label>
-                        <input type="text" id="project-type" name="project-type" placeholder="Décrivez brièvement votre projet (mur porteur, dalle, cuisine, salle de bain, etc.)" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="budget">Budget estimé</label>
-                        <select id="budget" name="budget" required>
-                            <option value="">Sélectionnez</option>
-                            <option value="<10k">Moins de 10 000 €</option>
-                            <option value="10-30k">10 000 € – 30 000 €</option>
-                            <option value="30-50k">30 000 € – 50 000 €</option>
-                            <option value="plus50k">Plus de 50 000 €</option>
-                        </select>
-                    </div>
-                    <button type="button" class="cta-btn" id="next-step">Suivant</button>
+      </section>
+
+      <section id="contact" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-sub">
+              Décrivez votre besoin (photos et mesures si possible). Réponse rapide avec une proposition claire.
+            </p>
+          </div>
+
+          <div class="contact-wrap">
+            <form class="contact-form" id="quote-form" data-mailto="contact@orb-linteau.fr">
+              <div class="form-step form-step-1">
+                <div class="form-group">
+                  <label for="project-type">Type de projet</label>
+                  <input
+                    type="text"
+                    id="project-type"
+                    name="project-type"
+                    placeholder="Mur porteur, dalle, cuisine, salle de bain…"
+                    required
+                  />
                 </div>
-                <div class="form-step form-step-2" style="display:none;">
-                    <div class="form-group">
-                        <label for="name">Nom et prénom</label>
-                        <input type="text" id="name" name="name" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Téléphone</label>
-                        <input type="tel" id="phone" name="phone" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Votre message</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    <div class="form-navigation">
-                        <button type="button" id="prev-step" class="btn-secondary">Précédent</button>
-                        <button type="submit" class="cta-btn">Envoyer</button>
-                    </div>
+
+                <div class="form-group">
+                  <label for="budget">Budget estimé</label>
+                  <select id="budget" name="budget" required>
+                    <option value="">Sélectionnez</option>
+                    <option value="<10k">Moins de 10 000 €</option>
+                    <option value="10-30k">10 000 € – 30 000 €</option>
+                    <option value="30-50k">30 000 € – 50 000 €</option>
+                    <option value="plus50k">Plus de 50 000 €</option>
+                  </select>
                 </div>
+
+                <div class="form-navigation">
+                  <span class="pill"><i class="fa-regular fa-envelope" aria-hidden="true"></i> Email (sans serveur)</span>
+                  <button type="button" class="btn btn-primary" id="next-step">Suivant</button>
+                </div>
+              </div>
+
+              <div class="form-step form-step-2" style="display: none">
+                <div class="form-group">
+                  <label for="name">Nom et prénom</label>
+                  <input type="text" id="name" name="name" autocomplete="name" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" autocomplete="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Téléphone</label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Votre message</label>
+                  <textarea id="message" name="message" rows="4" placeholder="Adresse, contraintes, délais…"></textarea>
+                </div>
+
+                <div class="form-navigation">
+                  <button type="button" id="prev-step" class="btn btn-secondary">Précédent</button>
+                  <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+              </div>
             </form>
+
             <div class="contact-info">
-                <p><i class="fas fa-phone"></i> <a href="tel:+33695951631">06 95 95 16 31</a></p>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:contact@orb-linteau.fr">contact@orb‑linteau.fr</a></p>
-                <p><i class="fas fa-map-marker-alt"></i> 63B Avenue du 22 Août, 34500 Béziers</p>
-                <p><i class="fas fa-clock"></i> Du lundi au vendredi : 8h–18h</p>
+              <p><i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+33695951631">06 95 95 16 31</a></p>
+              <p>
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <a href="mailto:contact@orb-linteau.fr">contact@orb‑linteau.fr</a>
+              </p>
+              <p>
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 63B Avenue du 22 Août, 34500 Béziers
+              </p>
+              <p><i class="fa-regular fa-clock" aria-hidden="true"></i> Du lundi au vendredi : 8h–18h</p>
+
+              <div class="contact-actions">
+                <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=63B%20Avenue%20du%2022%20Ao%C3%BBt%2034500%20B%C3%A9ziers" target="_blank" rel="noreferrer">
+                  Ouvrir sur Maps
+                </a>
+                <a class="btn btn-ghost" href="legal.html">Mentions légales</a>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-    <!-- Footer with extra info -->
+      </section>
+    </main>
+
     <footer>
-        <p>© 2025 Orb & Linteau. Tous droits réservés.</p>
-        <p>SIRET : 88906486100012 – Assurance RC Pro &amp; décennale.</p>
-        <p><a href="#top">Retour en haut</a></p>
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Orb &amp; Linteau · SIRET : 889 064 861 00012</div>
+        <div class="footer-links">
+          <a href="#top">Retour en haut</a>
+          <span aria-hidden="true">·</span>
+          <a href="legal.html">Mentions légales</a>
+        </div>
+      </div>
     </footer>
 
-    <!-- Simple script to handle the two‑step contact form -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var nextBtn = document.getElementById('next-step');
-      var prevBtn = document.getElementById('prev-step');
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-          var step1 = document.querySelector('.form-step-1');
-          var step2 = document.querySelector('.form-step-2');
-          if (step1 && step2) {
-            step1.style.display = 'none';
-            step2.style.display = 'block';
-          }
-        });
-      }
-      if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-          var step1 = document.querySelector('.form-step-1');
-          var step2 = document.querySelector('.form-step-2');
-          if (step1 && step2) {
-            step1.style.display = 'block';
-            step2.style.display = 'none';
-          }
-        });
-      }
-    });
-    </script>
-</body>
+    <script src="site.js" defer></script>
+  </body>
 </html>

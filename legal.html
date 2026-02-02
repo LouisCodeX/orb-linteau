@@ -2,62 +2,87 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mentions légales de l'entreprise Orb &amp; Linteau, artisan maçon à Béziers, Hérault.">
-    <title>Mentions légales – Orb &amp; Linteau</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-u4hUQVqR+uZP7UG1lQJnKki+YWg2Z2F/B7r/hwdAs5dpMX6k3cGKo/Sd9RfuvoNrtuEbdMqSpqwC+3RB+VPK4g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mentions légales — Orb & Linteau (Béziers / Hérault)." />
+    <title>Mentions légales | Orb & Linteau</title>
+    <link rel="canonical" href="https://www.orb-linteau.fr/legal.html" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header id="top">
-        <div class="header-container">
-            <!-- Logo linking back to the home page -->
-            <a href="index.html#top" class="logo-wrapper logo-link">
-                <img src="logo_orb_linteau_simple.png" alt="Logo Orb &amp; Linteau" class="logo-img">
-                <span class="logo-text">Orb &amp; Linteau</span>
-            </a>
-            <!-- Mobile navigation toggle (checkbox) and label for burger icon) -->
-            <input type="checkbox" id="nav-toggle" class="nav-toggle">
-            <label for="nav-toggle" class="nav-toggle-label">
-                <i class="fas fa-bars"></i>
-            </label>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html#services">Services</a></li>
-                    <li><a href="index.html#realisations">Réalisations</a></li>
-                    <li><a href="index.html#about">À propos</a></li>
-                    <li><a href="index.html#temoignages">Témoignages</a></li>
-                    <li><a href="index.html#blog">Blog / FAQ</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="index.html#top" aria-label="Retour à l’accueil">
+          <img class="brand-mark" src="favicon.png" alt="" width="42" height="42" />
+          <span class="brand-text">
+            <span class="brand-name">Orb &amp; Linteau</span>
+            <span class="brand-sub">Mentions légales</span>
+          </span>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label class="nav-toggle-btn" for="nav-toggle" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </label>
+
+        <nav class="nav" aria-label="Navigation">
+          <ul class="nav-menu">
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#realisations">Réalisations</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li class="nav-cta"><a class="btn btn-primary" href="index.html#contact">Devis</a></li>
+          </ul>
+        </nav>
+
+        <label class="nav-overlay" for="nav-toggle" aria-hidden="true"></label>
+      </div>
     </header>
 
-    <section id="legal" class="legal">
-        <h2>Mentions légales</h2>
-        <p>Entreprise : <strong>Orb &amp; Linteau – artisan maçon</strong></p>
-        <ul>
-            <li><strong>SIREN :</strong> 830 507 190</li>
-            <li><strong>SIRET (siège) :</strong> 830 507 190 00031</li>
-            <li><strong>Forme juridique :</strong> Entrepreneur individuel</li>
-            <li><strong>Numéro de TVA :</strong> FR49830507190</li>
-            <li><strong>Inscription au RCS :</strong> Non inscrit</li>
-            <li><strong>Inscription au RNE :</strong> INSCRIT – le 23/06/2017 (Louis Benassy)</li>
-        </ul>
-        <p>Si vous avez des questions concernant ces informations juridiques, vous pouvez nous contacter par téléphone au <a href="tel:+33695951631">06 95 95 16 31</a> ou par email à l’adresse <a href="mailto:contact@orbetlinteau.fr">contact@orbetlinteau.fr</a>.</p>
-    </section>
+    <main class="legal" id="contenu">
+      <div class="container">
+        <div class="section-head">
+          <h1 class="section-title">Mentions légales</h1>
+          <p class="section-sub">Informations légales du site et de l’entreprise.</p>
+        </div>
+
+        <div class="card">
+          <h2 style="margin-top: 0">Éditeur</h2>
+          <p><strong>Orb &amp; Linteau</strong> — Maçonnerie &amp; rénovations</p>
+          <ul>
+            <li><strong>Adresse :</strong> 63B Avenue du 22 Août, 34500 Béziers, France</li>
+            <li><strong>Téléphone :</strong> <a href="tel:+33695951631">06 95 95 16 31</a></li>
+            <li><strong>Email :</strong> <a href="mailto:contact@orb-linteau.fr">contact@orb-linteau.fr</a></li>
+            <li><strong>SIRET :</strong> 88906486100012</li>
+            <li><strong>Assurance :</strong> RC Pro &amp; décennale</li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin-top: 1rem">
+          <h2 style="margin-top: 0">Hébergement</h2>
+          <p>Site hébergé par GitHub Pages (GitHub, Inc.).</p>
+        </div>
+
+        <div class="card" style="margin-top: 1rem">
+          <h2 style="margin-top: 0">Données personnelles</h2>
+          <p>
+            Ce site ne stocke pas de données sur un serveur. Le formulaire ouvre votre messagerie (mailto). Les échanges
+            servent uniquement à répondre à votre demande et ne sont pas revendus.
+          </p>
+        </div>
+      </div>
+    </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Orb &amp; Linteau. Tous droits réservés.</p>
-            <p><a href="index.html#top">Haut de page</a> · <a href="legal.html">Mentions légales</a> · <a href="#">Politique de confidentialité</a></p>
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Orb &amp; Linteau</div>
+        <div class="footer-links">
+          <a href="index.html#top">Accueil</a>
+          <span aria-hidden="true">·</span>
+          <a href="#top">Haut de page</a>
         </div>
+      </div>
     </footer>
+
+    <script src="site.js" defer></script>
 </body>
 </html>
