@@ -66,9 +66,6 @@
     }
 
     form.addEventListener("submit", (e) => {
-      const mailto = form.getAttribute("data-mailto");
-      if (!mailto) return;
-
       e.preventDefault();
 
       if (!form.checkValidity()) {
@@ -87,20 +84,20 @@
               project: "Project type",
               budget: "Estimated budget",
               name: "Name",
-              email: "Email",
               phone: "Phone",
               message: "Message",
               page: "Page",
+              copied: "Copied. You can paste it into a text message.",
             }
           : {
               subject: "Demande de devis",
               project: "Type de projet",
               budget: "Budget estimé",
               name: "Nom",
-              email: "Email",
               phone: "Téléphone",
               message: "Message",
               page: "Page",
+              copied: "Copié. Vous pouvez le coller dans un SMS.",
             };
 
       const project = get("project-type");
@@ -111,7 +108,6 @@
         `${labels.budget}: ${get("budget") || "-"}`,
         "",
         `${labels.name}: ${get("name") || "-"}`,
-        `${labels.email}: ${get("email") || "-"}`,
         `${labels.phone}: ${get("phone") || "-"}`,
         "",
         `${labels.message}:`,
@@ -120,12 +116,53 @@
         `${labels.page}: ${window.location.href}`,
       ];
 
-      const url = `mailto:${encodeURIComponent(mailto)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        lines.join("\n")
-      )}`;
+      const body = lines.join("\n");
 
-      // Opens user's mail client with a prefilled email.
-      window.location.href = url;
+      const copyToClipboard = async (text) => {
+        try {
+          if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch (_) {
+          // ignore
+        }
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "true");
+          ta.style.position = "fixed";
+          ta.style.top = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          return ok;
+        } catch (_) {
+          return false;
+        }
+      };
+
+      // Prefer SMS (when configured). Fallback to mailto when provided.
+      const sms = (form.getAttribute("data-sms") || "").trim();
+      const mailto = (form.getAttribute("data-mailto") || "").trim();
+
+      if (sms) {
+        copyToClipboard(body).then((ok) => {
+          if (ok) window.alert(labels.copied);
+        });
+
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const sep = isIOS ? "&" : "?";
+        const smsUrl = `sms:${encodeURIComponent(sms)}${sep}body=${encodeURIComponent(body)}`;
+        window.location.href = smsUrl;
+        return;
+      }
+
+      if (mailto) {
+        const url = `mailto:${encodeURIComponent(mailto)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = url;
+      }
     });
   };
 
