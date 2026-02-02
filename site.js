@@ -101,7 +101,7 @@
             };
 
       const project = get("project-type");
-      const subject = `${labels.subject}${project ? ` — ${project}` : ""}`;
+      const subject = `${labels.subject}${project ? ` - ${project}` : ""}`;
 
       const lines = [
         `${labels.project}: ${project || "-"}`,
