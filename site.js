@@ -53,10 +53,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return Uint8Array.from(binary, (character) => character.charCodeAt(0));
   };
 
-  const getFragmentKey = () => {
+  const getFragmentCredential = () => {
     const fragment = window.location.hash.slice(1);
-    if (!fragment) return "";
-    return new URLSearchParams(fragment).get("key") || "";
+    if (!fragment) return null;
+    const params = new URLSearchParams(fragment);
+    const key = params.get("key");
+    if (key) return { type: "key", value: key };
+    const access = params.get("a");
+    if (access) return { type: "access", value: access };
+    return null;
   };
 
   const appendText = (parent, tagName, text, className) => {
@@ -437,13 +442,40 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Escape" && guideNav.classList.contains("is-open")) closeMenu(true);
   });
 
-  const decryptGuide = async (fragmentKey) => {
-    const keyBytes = decodeBase64Url(fragmentKey);
-    if (keyBytes.byteLength !== 32) throw new Error("Invalid key");
+  const resolveGuideKey = async (credential, payload) => {
+    if (credential.type === "key") {
+      const keyBytes = decodeBase64Url(credential.value);
+      if (keyBytes.byteLength !== 32) throw new Error("Invalid key");
+      return keyBytes;
+    }
+    if (credential.type !== "access" || !payload.access) throw new Error("Invalid access token");
+    const wrappingBytes = await crypto.subtle.digest("SHA-256", encoder.encode(credential.value));
+    const wrappingKey = await crypto.subtle.importKey(
+      "raw",
+      wrappingBytes,
+      { name: "AES-GCM" },
+      false,
+      ["decrypt"]
+    );
+    const keyBytes = await crypto.subtle.decrypt(
+      {
+        name: "AES-GCM",
+        iv: decodeBase64Url(payload.access.iv),
+        additionalData: encoder.encode("rose-guide-access-v1")
+      },
+      wrappingKey,
+      decodeBase64Url(payload.access.wrappedKey)
+    );
+    if (keyBytes.byteLength !== 32) throw new Error("Invalid wrapped key");
+    return new Uint8Array(keyBytes);
+  };
+
+  const decryptGuide = async (credential) => {
     const response = await fetch("guide.enc.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Encrypted guide unavailable");
     const payload = await response.json();
     if (payload.version !== 1) throw new Error("Unsupported guide version");
+    const keyBytes = await resolveGuideKey(credential, payload);
     const key = await crypto.subtle.importKey("raw", keyBytes, { name: "AES-GCM" }, false, ["decrypt"]);
     const plaintext = await crypto.subtle.decrypt(
       { name: "AES-GCM", iv: decodeBase64Url(payload.iv), additionalData },
@@ -454,8 +486,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const openGuide = async () => {
-    const fragmentKey = getFragmentKey();
-    if (!fragmentKey) {
+    const credential = getFragmentCredential();
+    if (!credential) {
       accessStatus.hidden = true;
       retryButton.hidden = true;
       return;
@@ -464,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
     accessStatus.hidden = false;
     retryButton.hidden = true;
     try {
-      const guide = await decryptGuide(fragmentKey);
+      const guide = await decryptGuide(credential);
       renderGuide(guide);
       accessScreen.hidden = true;
       guideShell.hidden = false;
