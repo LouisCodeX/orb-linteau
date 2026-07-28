@@ -126,6 +126,40 @@ document.addEventListener("DOMContentLoaded", () => {
     parent.append(row);
   };
 
+  const copyValue = async (value) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+    const textarea = document.createElement("textarea");
+    textarea.value = value;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.append(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
+  };
+
+  const openWifiSettings = () => {
+    const userAgent = navigator.userAgent;
+    let settingsUrl = "";
+    if (/Android/i.test(userAgent)) {
+      settingsUrl = "intent:#Intent;action=android.settings.WIFI_SETTINGS;end";
+    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+      settingsUrl = "App-Prefs:root=WIFI";
+    }
+    if (!settingsUrl) return false;
+    const link = document.createElement("a");
+    link.href = settingsUrl;
+    link.style.display = "none";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    return true;
+  };
+
   const addCopyButton = (parent, value) => {
     const button = document.createElement("button");
     button.type = "button";
@@ -133,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     button.textContent = "Copier";
     button.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(value);
+        await copyValue(value);
         button.textContent = "Copié";
         window.setTimeout(() => {
           button.textContent = "Copier";
@@ -157,6 +191,38 @@ document.addEventListener("DOMContentLoaded", () => {
       if (row.copy) addCopyButton(wrapper, row.value);
       panel.append(wrapper);
     });
+
+    const network = wifi.rows.find((row) => /réseau|network/i.test(row.label))?.value;
+    const password = wifi.rows.find((row) => /mot de passe|password/i.test(row.label))?.value;
+    if (network && password) {
+      const helper = document.createElement("div");
+      helper.className = "wifi-connect-helper";
+      const status = document.createElement("div");
+      status.className = "wifi-connect-status";
+      status.hidden = true;
+      status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
+      appendText(status, "strong", "Mot de passe copié");
+      appendText(status, "span", `Choisissez ${network}, puis collez le mot de passe.`);
+
+      const connectButton = document.createElement("button");
+      connectButton.type = "button";
+      connectButton.className = "wifi-connect-button";
+      appendIcon(connectButton, "wifi", "wifi-button-icon");
+      appendText(connectButton, "span", "Se connecter au Wi-Fi");
+      connectButton.addEventListener("click", () => {
+        copyValue(password).catch(() => {
+          status.querySelector("strong").textContent = "Copiez le mot de passe ci-dessus";
+        });
+        status.hidden = false;
+        connectButton.classList.add("is-done");
+        connectButton.querySelector("span:last-child").textContent = "Mot de passe copié";
+        openWifiSettings();
+      });
+
+      helper.append(connectButton, status);
+      panel.append(helper);
+    }
     parent.append(panel);
   };
 
