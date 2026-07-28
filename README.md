@@ -10,8 +10,11 @@ This GitHub Pages site is an encrypted guest guide for confirmed travelers.
 - URL fragments are not sent to GitHub Pages or other servers.
 - Neither the key, the short token, nor the plaintext source may be committed.
 - Search engines are blocked with both `robots.txt` and page-level `noindex` directives.
+- The Wi-Fi sharing QR is generated locally in the browser after decryption; credentials are never sent to a QR service.
 
 The root URL without a key displays only a generic access screen.
+
+`qr-generator.min.js` is a self-hosted browser bundle of `qrcode-generator` by Kazuhiko Arase, distributed under the MIT License.
 
 ## Updating the guide
 

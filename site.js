@@ -166,6 +166,124 @@ document.addEventListener("DOMContentLoaded", () => {
     parent.append(button);
   };
 
+  const escapeWifiValue = (value) => String(value).replace(/([\\;,":])/g, "\\$1");
+
+  const createWifiQrCanvas = (network, password) => {
+    const payload = `WIFI:T:WPA;S:${escapeWifiValue(network)};P:${escapeWifiValue(password)};;`;
+    const qr = window.QRCodeGenerator(0, "H");
+    qr.addData(payload, "Byte");
+    qr.make();
+    const moduleCount = qr.getModuleCount();
+    const margin = 4;
+    const cellSize = 8;
+    const canvas = document.createElement("canvas");
+    canvas.className = "wifi-qr-canvas";
+    canvas.width = (moduleCount + margin * 2) * cellSize;
+    canvas.height = canvas.width;
+    const context = canvas.getContext("2d");
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#292826";
+    for (let row = 0; row < moduleCount; row += 1) {
+      for (let column = 0; column < moduleCount; column += 1) {
+        if (!qr.isDark(row, column)) continue;
+        context.fillRect(
+          (column + margin) * cellSize,
+          (row + margin) * cellSize,
+          cellSize,
+          cellSize
+        );
+      }
+    }
+    return canvas;
+  };
+
+  const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) resolve(blob);
+      else reject(new Error("QR image unavailable"));
+    }, "image/png");
+  });
+
+  const downloadWifiQr = (blob) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "WiFi-Rose-des-Orpellieres.png";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const showWifiQr = async (network, password) => {
+    document.querySelector(".wifi-qr-dialog")?.remove();
+    const dialog = document.createElement("dialog");
+    dialog.className = "wifi-qr-dialog";
+    const card = document.createElement("div");
+    card.className = "wifi-qr-card";
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "wifi-qr-close";
+    closeButton.setAttribute("aria-label", "Fermer");
+    closeButton.textContent = "×";
+    appendText(card, "p", "Pour les autres voyageurs", "eyebrow");
+    appendText(card, "h2", "Partager le Wi-Fi");
+    appendText(
+      card,
+      "p",
+      "Les autres voyageurs scannent ce QR avec l’appareil photo de leur téléphone.",
+      "wifi-qr-intro"
+    );
+    const canvas = createWifiQrCanvas(network, password);
+    const visual = document.createElement("div");
+    visual.className = "wifi-qr-visual";
+    visual.append(canvas);
+    appendText(visual, "small", network);
+    card.append(visual);
+
+    const actions = document.createElement("div");
+    actions.className = "wifi-qr-actions";
+    const imageBlob = await canvasToBlob(canvas);
+    const file = new File([imageBlob], "WiFi-Rose-des-Orpellieres.png", { type: "image/png" });
+    const canShareFile = Boolean(navigator.share && navigator.canShare?.({ files: [file] }));
+    const primaryButton = document.createElement("button");
+    primaryButton.type = "button";
+    primaryButton.className = "wifi-qr-primary";
+    primaryButton.textContent = canShareFile ? "Partager le QR" : "Télécharger le QR";
+    primaryButton.addEventListener("click", async () => {
+      if (!canShareFile) {
+        downloadWifiQr(imageBlob);
+        return;
+      }
+      try {
+        await navigator.share({
+          title: "Wi-Fi Rose des Orpellières",
+          text: `Scannez ce QR pour rejoindre ${network}.`,
+          files: [file]
+        });
+      } catch (error) {
+        if (error.name !== "AbortError") downloadWifiQr(imageBlob);
+      }
+    });
+    actions.append(primaryButton);
+    card.append(actions, closeButton);
+    dialog.append(card);
+
+    const closeDialog = () => {
+      if (typeof dialog.close === "function" && dialog.open) dialog.close();
+      else dialog.remove();
+    };
+    closeButton.addEventListener("click", closeDialog);
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) closeDialog();
+    });
+    dialog.addEventListener("close", () => dialog.remove(), { once: true });
+    document.body.append(dialog);
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", "");
+  };
+
   const appendWifi = (parent, wifi) => {
     if (!wifi?.rows?.length) return;
     const panel = document.createElement("div");
@@ -178,6 +296,25 @@ document.addEventListener("DOMContentLoaded", () => {
       if (row.copy) addCopyButton(wrapper, row.value);
       panel.append(wrapper);
     });
+
+    const network = wifi.rows.find((row) => /réseau|network/i.test(row.label))?.value;
+    const password = wifi.rows.find((row) => /mot de passe|password/i.test(row.label))?.value;
+    if (network && password && typeof window.QRCodeGenerator === "function") {
+      const shareRow = document.createElement("div");
+      shareRow.className = "wifi-share-row";
+      const shareButton = document.createElement("button");
+      shareButton.type = "button";
+      shareButton.className = "wifi-share-button";
+      appendIcon(shareButton, "wifi", "wifi-share-icon");
+      appendText(shareButton, "span", "Afficher le QR Wi-Fi");
+      shareButton.addEventListener("click", () => {
+        showWifiQr(network, password).catch(() => {
+          shareButton.querySelector("span:last-child").textContent = "QR indisponible";
+        });
+      });
+      shareRow.append(shareButton);
+      panel.append(shareRow);
+    }
 
     parent.append(panel);
   };
