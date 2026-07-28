@@ -1,465 +1,67 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Andrejs Vasiljevs - Maçonnerie générale &amp; gros œuvre (Marseillan / Hérault)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="referrer" content="no-referrer">
+    <meta name="theme-color" content="#f3ede8">
     <meta
-      name="description"
-      content="Maçonnerie générale & gros œuvre à Marseillan et dans tout l’Hérault : murs porteurs (IPN/HEB), fondations, terrasses, salles de bain, cuisines, rénovations complètes."
-    />
-    <meta name="theme-color" content="#f6f1ea" />
-
-    <!-- Social previews -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Andrejs Vasiljevs" />
-    <meta property="og:title" content="Andrejs Vasiljevs - Maçonnerie générale &amp; gros œuvre (Hérault)" />
-    <meta
-      property="og:description"
-      content="Maçonnerie générale & gros œuvre. Basé à Marseillan, intervention dans tout l’Hérault."
-    />
-    <meta property="og:image" content="hero_bg.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Icons (optional, for the few UI icons) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <link rel="icon" href="favicon.png" type="image/png" />
-    <link rel="stylesheet" href="styles.css" />
-
-    <!-- Local business schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
-        "name": "MONSIEUR ANDREJS VASILJEVS",
-        "telephone": "+33781701859",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "1 Chemin de Belle Bouche La Tour d’Argent",
-          "postalCode": "34340",
-          "addressLocality": "Marseillan",
-          "addressCountry": "FR"
-        },
-        "areaServed": ["Hérault", "Marseillan", "Agde", "Sète", "Béziers"]
-      }
-    </script>
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+    >
+    <title>Guide voyageurs | Rose des Orpellières</title>
+    <link rel="icon" href="logo-rose.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="site.js" defer></script>
   </head>
-
   <body>
-    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <a class="skip-link" href="#guide-content">Aller au guide</a>
 
-    <header class="site-header" id="top">
-      <div class="container header-inner">
-        <a class="brand" href="#top" aria-label="Retour en haut">
-          <img class="brand-mark" src="favicon.png" alt="" width="42" height="42" />
-          <span class="brand-text">
-            <span class="brand-name">Andrejs Vasiljevs</span>
-            <span class="brand-sub">Maçonnerie générale &amp; gros œuvre - Marseillan • Hérault</span>
-          </span>
-        </a>
-
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-        <label class="nav-toggle-btn" for="nav-toggle" aria-label="Ouvrir le menu">
-          <span></span><span></span><span></span>
-        </label>
-
-        <nav class="nav" aria-label="Navigation principale">
-          <ul class="nav-menu">
-            <li><a href="#services">Services</a></li>
-            <li><a href="#realisations">Réalisations</a></li>
-            <li><a href="#apropos">À propos</a></li>
-            <li><a href="#temoignages">Témoignages</a></li>
-            <li><a href="#blog">FAQ</a></li>
-            <li class="nav-cta"><a class="btn btn-primary" href="#contact">Devis</a></li>
-            <li>
-              <span class="lang-switch" aria-label="Choix de la langue">
-                <a class="active" href="index.html">FR</a>
-                <span aria-hidden="true">/</span>
-                <a href="index-en.html">EN</a>
-              </span>
-            </li>
-          </ul>
-        </nav>
-
-        <label class="nav-overlay" for="nav-toggle" aria-hidden="true"></label>
+    <main class="access-screen" id="access-screen" aria-live="polite">
+      <div class="access-card">
+        <img src="logo-rose.svg" width="88" height="88" alt="">
+        <p class="eyebrow">Rose des Orpellières</p>
+        <h1>Guide réservé<br>aux voyageurs</h1>
+        <p id="access-message">
+          Scannez le QR code présent dans l’appartement pour ouvrir votre guide de séjour.
+        </p>
+        <div class="access-status" id="access-status" hidden>
+          <span aria-hidden="true"></span>
+          <b>Ouverture du guide</b>
+        </div>
+        <button class="retry-button" id="retry-button" type="button" hidden>Réessayer</button>
+        <small>Le contenu du guide est chiffré et sa clé n’est jamais envoyée au serveur.</small>
       </div>
-    </header>
-
-    <main id="contenu">
-      <section class="hero" aria-label="Présentation">
-        <div class="container hero-inner">
-          <h1>Maçonnerie &amp; rénovations sur mesure en Hérault</h1>
-          <p class="lead">
-            Basé à <strong>Marseillan</strong>, j’interviens dans tout l’Hérault pour vos projets : <strong>ouvertures de murs
-            porteurs</strong>, fondations, terrasses, rénovation intérieure/extérieur, salles de bain, cuisines et chantiers
-            de gros œuvre. Objectif : un rendu propre, durable, et des finitions nettes.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Obtenir un devis</a>
-            <a class="btn btn-ghost" href="tel:+33781701859">Appeler</a>
-          </div>
-
-          <div class="hero-proof" aria-label="Points forts">
-            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Chantier propre</span>
-            <span class="pill"><i class="fa-solid fa-check" aria-hidden="true"></i> Devis clair</span>
-            <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Marseillan • Hérault (34)</span>
-          </div>
-
-          <div class="hero-card" aria-label="Contact rapide">
-            <p class="micro">
-              <strong>Réponse rapide</strong> - appelez au <a href="tel:+33781701859">07&nbsp;81&nbsp;70&nbsp;18&nbsp;59</a> ou
-              envoyez un <a href="sms:+33781701859">SMS</a> (photos + infos).
-            </p>
-            <div class="hero-card-row">
-              <span class="pill"><i class="fa-solid fa-map-pin" aria-hidden="true"></i> Marseillan (34340)</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" class="section">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">Nos services</h2>
-            <p class="section-sub">
-              Du gros œuvre à la rénovation complète : un interlocuteur unique, un rendu propre, et des décisions simples.
-            </p>
-          </div>
-
-          <div class="grid cards">
-            <article class="card">
-              <div class="icon" aria-hidden="true"><i class="fa-solid fa-helmet-safety"></i></div>
-              <h3>Maçonnerie structurelle</h3>
-              <ul>
-                <li>Ouvertures dans murs porteurs</li>
-                <li>Pose d’IPN/HEB et création de linteaux</li>
-                <li>Reprises en sous‑œuvre, longrines et radiers</li>
-                <li>Renforcement de planchers, ceinturage/chaînage</li>
-                <li>Murs de soutènement, reprises de fissures, scellements chimiques</li>
-                <li>Carottages de gros diamètre et démolitions contrôlées</li>
-              </ul>
-            </article>
-
-            <article class="card">
-              <div class="icon" aria-hidden="true"><i class="fa-solid fa-shower"></i></div>
-              <h3>Rénovation intérieure</h3>
-              <ul>
-                <li>Salles de bain complètes : plomberie, étanchéité SPEC, carrelage/faïence</li>
-                <li>Cuisines complètes : pose, adaptations plomberie/élec, crédences, plans de travail</li>
-                <li>Cloisons, doublages et faux‑plafonds</li>
-                <li>Sols : carrelage, parquet/stratifié, vinyle, ragréage</li>
-                <li>Peinture, enduits et finitions</li>
-                <li>Menuiseries intérieures : portes, rangements</li>
-              </ul>
-            </article>
-
-            <article class="card">
-              <div class="icon" aria-hidden="true"><i class="fa-solid fa-sun"></i></div>
-              <h3>Extérieurs, terrasses &amp; façades</h3>
-              <ul>
-                <li>Dalles et terrasses béton/bois, escaliers extérieurs, allées</li>
-                <li>Fondations pour abris/garages, murets et jardinières</li>
-                <li>Façades : enduits, ravalement, hydrofuge</li>
-                <li>Drainage périphérique, regards et évacuations</li>
-                <li>Plages de piscine, clôtures et portails</li>
-                <li>Menuiseries extérieures : fenêtres, baies, volets</li>
-              </ul>
-            </article>
-
-            <article class="card">
-              <div class="icon" aria-hidden="true"><i class="fa-solid fa-key"></i></div>
-              <h3>Projets clé‑en‑main &amp; dépannages</h3>
-              <ul>
-                <li>Rénovation d’appartements/maisons de A à Z</li>
-                <li>Aménagement de combles et redistribution d’espaces</li>
-                <li>Mise aux normes électricité/plomberie</li>
-                <li>Diagnostic fissures &amp; humidité, cuvelage de sous‑sol</li>
-                <li>Petits travaux : rebouchages, reprises, nettoyage fin de chantier</li>
-                <li>Dossiers techniques &amp; BET si nécessaire</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="realisations" class="section alt">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">Réalisations récentes</h2>
-            <p class="section-sub">Quelques projets récents pour illustrer le niveau de finition.</p>
-          </div>
-
-          <div class="portfolio-grid">
-            <div class="portfolio-item">
-              <a href="salle_de_eau.html">
-                <div class="portfolio-frame">
-                  <img loading="lazy" src="project_bathroom3.png" alt="Salle d’eau - Béziers" />
-                  <div class="portfolio-caption">
-                    <h4>Salle d’eau - Béziers</h4>
-                    <p>Douche 90×90, étanchéité SPEC, carrelage, finitions.</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="portfolio-item">
-              <a href="piece_etroite_escalier.html">
-                <div class="portfolio-frame">
-                  <img loading="lazy" src="project_living3.png" alt="Salon & escalier - Béziers" />
-                  <div class="portfolio-caption">
-                    <h4>Salon &amp; escalier - Béziers</h4>
-                    <p>Réaménagement d’un séjour, escalier bois, finitions nettes.</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="portfolio-item">
-              <a href="cuisine_couloir.html">
-                <div class="portfolio-frame">
-                  <img loading="lazy" src="project_kitchen3.png" alt="Cuisine contemporaine - Béziers" />
-                  <div class="portfolio-caption">
-                    <h4>Cuisine contemporaine - Béziers</h4>
-                    <p>Pose + adaptations, plans de travail, intégrations.</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="portfolio-item">
-              <a href="salon_combles.html">
-                <div class="portfolio-frame">
-                  <img loading="lazy" src="project_loft2.png" alt="Salon sous combles" />
-                  <div class="portfolio-caption">
-                    <h4>Salon sous combles</h4>
-                    <p>Carrelage + peinture, finitions et ajustements.</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="portfolio-item">
-              <a href="terrasse_vue_toits.html">
-                <div class="portfolio-frame">
-                  <img loading="lazy" src="project_rooftop.png" alt="Terrasse vue toits" />
-                  <div class="portfolio-caption">
-                    <h4>Terrasse vue toits</h4>
-                    <p>Platelage, garde‑vue, détails et finitions.</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="portfolio-item">
-              <a href="patio_rdc.html">
-                <div class="portfolio-frame">
-                  <img loading="lazy" src="project_patio_flower.png" alt="Patio fleuri" />
-                  <div class="portfolio-caption">
-                    <h4>Patio fleuri</h4>
-                    <p>Banquette bois + treillage, coin détente cosy.</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="apropos" class="section">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">À propos</h2>
-            <p class="section-sub">Un artisan basé à Marseillan, avec un travail propre et un périmètre clair.</p>
-          </div>
-
-          <div class="about-wrap">
-            <div>
-              <p class="section-sub">
-                <strong>Andrejs Vasiljevs</strong>, artisan maçon. Basé à <strong>Marseillan</strong>, j’interviens dans tout
-                l’Hérault pour des travaux de maçonnerie générale, gros œuvre et rénovation. L’objectif : un chantier propre,
-                des finitions nettes, et une communication simple.
-              </p>
-
-              <ul class="about-highlights">
-                <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Basé à Marseillan - déplacements Hérault (34)</li>
-                <li><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i> Maçonnerie générale &amp; gros œuvre (APE 4399C)</li>
-                <li><i class="fa-solid fa-file-signature" aria-hidden="true"></i> Devis clair, périmètre cadré</li>
-                <li><i class="fa-solid fa-broom" aria-hidden="true"></i> Chantier laissé propre</li>
-                <li><i class="fa-solid fa-phone" aria-hidden="true"></i> Contact direct : 07 81 70 18 59</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="temoignages" class="section alt">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">Témoignages</h2>
-            <p class="section-sub">Des retours courts, concrets, orientés “résultat”.</p>
-          </div>
-
-          <div class="testimonials-grid">
-            <div class="testimonial">
-              <div class="stars" aria-label="5 étoiles">★★★★★</div>
-              <p>« Chantier propre, finitions soignées. Communication simple du début à la fin. »</p>
-              <div class="client-info"><span class="client-name">Client - Hérault</span></div>
-            </div>
-
-            <div class="testimonial">
-              <div class="stars" aria-label="5 étoiles">★★★★★</div>
-              <p>« Travail sérieux, délais annoncés tenus et résultat conforme au devis. »</p>
-              <div class="client-info"><span class="client-name">Client - Marseillan</span></div>
-            </div>
-
-            <div class="testimonial">
-              <div class="stars" aria-label="5 étoiles">★★★★★</div>
-              <p>« Devis clair, finitions propres. Je recommande pour des travaux de rénovation. »</p>
-              <div class="client-info"><span class="client-name">Client - Béziers</span></div>
-            </div>
-          </div>
-
-          <!-- Reviews link can be added when available -->
-        </div>
-      </section>
-
-      <section id="blog" class="section">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">FAQ</h2>
-            <p class="section-sub">Les questions les plus fréquentes avant de démarrer un chantier.</p>
-          </div>
-
-          <div class="faq" role="list">
-            <details>
-              <summary>Comment créer une ouverture dans un mur porteur ?</summary>
-              <p>
-                On commence par un diagnostic (structure, charges), puis on dimensionne le renfort (IPN/HEB) et on sécurise
-                le chantier. L’objectif : une ouverture propre, sans fissures, avec reprises soignées.
-              </p>
-            </details>
-            <details>
-              <summary>Quel est le coût d’une dalle de béton ?</summary>
-              <p>
-                Le prix dépend de la surface, de l’épaisseur, de la préparation (terrassement, hérisson, ferraillage), et
-                de l’accès au chantier. Nous proposons un devis clair avec options si besoin.
-              </p>
-            </details>
-            <details>
-              <summary>Quelle est la durée d’un chantier de reprise en sous‑œuvre ?</summary>
-              <p>
-                Selon la complexité et l’ampleur, cela peut aller de quelques semaines à plusieurs mois. Les étapes sont
-                cadrées (phasage) pour sécuriser la structure.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section alt">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="section-title">Contact</h2>
-            <p class="section-sub">
-              Décrivez votre besoin (photos et mesures si possible). Réponse rapide avec une proposition claire.
-            </p>
-          </div>
-
-          <div class="contact-wrap">
-            <form class="contact-form" id="quote-form" data-sms="+33781701859">
-              <div class="form-step form-step-1">
-                <div class="form-group">
-                  <label for="project-type">Type de projet</label>
-                  <input
-                    type="text"
-                    id="project-type"
-                    name="project-type"
-                    placeholder="Mur porteur, dalle, cuisine, salle de bain…"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="budget">Budget estimé</label>
-                  <select id="budget" name="budget" required>
-                    <option value="">Sélectionnez</option>
-                    <option value="<10k">Moins de 10 000 €</option>
-                    <option value="10-30k">10 000 € – 30 000 €</option>
-                    <option value="30-50k">30 000 € – 50 000 €</option>
-                    <option value="plus50k">Plus de 50 000 €</option>
-                  </select>
-                </div>
-
-                <div class="form-navigation">
-                  <span class="pill"><i class="fa-regular fa-message" aria-hidden="true"></i> SMS (copie + ouverture)</span>
-                  <button type="button" class="btn btn-primary" id="next-step">Suivant</button>
-                </div>
-              </div>
-
-              <div class="form-step form-step-2" style="display: none">
-                <div class="form-group">
-                  <label for="name">Nom et prénom</label>
-                  <input type="text" id="name" name="name" autocomplete="name" required />
-                </div>
-
-                <div class="form-group">
-                  <label for="phone">Téléphone</label>
-                  <input type="tel" id="phone" name="phone" autocomplete="tel" required />
-                </div>
-
-                <div class="form-group">
-                  <label for="message">Votre message</label>
-                  <textarea id="message" name="message" rows="4" placeholder="Adresse, contraintes, délais…"></textarea>
-                </div>
-
-                <div class="form-navigation">
-                  <button type="button" id="prev-step" class="btn btn-secondary">Précédent</button>
-                  <button type="submit" class="btn btn-primary">Envoyer (SMS)</button>
-                </div>
-              </div>
-            </form>
-
-            <div class="contact-info">
-              <p><i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+33781701859">07 81 70 18 59</a></p>
-              <p><i class="fa-regular fa-message" aria-hidden="true"></i> <a href="sms:+33781701859">Envoyer un SMS</a></p>
-              <p>
-                <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 1 Chemin de Belle Bouche La Tour d’Argent, 34340 Marseillan
-              </p>
-
-              <div class="contact-actions">
-                <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=1%20Chemin%20de%20Belle%20Bouche%20La%20Tour%20d%E2%80%99Argent%2034340%20Marseillan" target="_blank" rel="noreferrer">
-                  Ouvrir sur Maps
-                </a>
-                <a class="btn btn-ghost" href="legal.html">Mentions légales</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
-    <footer>
-      <div class="container footer-inner">
-        <div>© <span id="year"></span> Andrejs Vasiljevs · SIRET : 528 709 892 00012</div>
-        <div class="footer-links">
-          <a href="#top">Retour en haut</a>
-          <span aria-hidden="true">·</span>
-          <a href="legal.html">Mentions légales</a>
-        </div>
-      </div>
-    </footer>
+    <div class="guide-shell" id="guide-shell" hidden>
+      <header class="site-header">
+        <a class="brand" href="#welcome" aria-label="Retour au début du guide">
+          <img src="logo-rose.svg" width="48" height="48" alt="">
+          <span>
+            <strong>Rose des Orpellières</strong>
+            <small>Guide voyageurs privé</small>
+          </span>
+        </a>
+        <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="guide-nav">
+          <span></span><span></span>
+          <b>Menu</b>
+        </button>
+        <nav class="guide-nav" id="guide-nav" aria-label="Sommaire"></nav>
+      </header>
 
-    <script src="site.js" defer></script>
+      <main id="guide-content" tabindex="-1"></main>
+
+      <footer class="site-footer">
+        <img src="logo-rose.svg" width="52" height="52" alt="">
+        <p>Rose des Orpellières · Sérignan</p>
+        <a href="https://orb-chaux.fr/mentions-legales/" target="_blank" rel="noopener noreferrer">Mentions légales</a>
+      </footer>
+    </div>
+
+    <noscript>
+      <p class="noscript-message">JavaScript doit être activé pour déchiffrer ce guide privé.</p>
+    </noscript>
   </body>
 </html>

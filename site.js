@@ -1,175 +1,269 @@
-(() => {
-  const setYear = () => {
-    const el = document.getElementById("year");
-    if (el) el.textContent = String(new Date().getFullYear());
+"use strict";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const accessScreen = document.querySelector("#access-screen");
+  const accessMessage = document.querySelector("#access-message");
+  const accessStatus = document.querySelector("#access-status");
+  const retryButton = document.querySelector("#retry-button");
+  const guideShell = document.querySelector("#guide-shell");
+  const guideContent = document.querySelector("#guide-content");
+  const guideNav = document.querySelector("#guide-nav");
+  const menuButton = document.querySelector("#menu-button");
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  const additionalData = encoder.encode("rose-guide-v1");
+
+  const decodeBase64Url = (value) => {
+    const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+    const binary = atob(padded);
+    return Uint8Array.from(binary, (character) => character.charCodeAt(0));
   };
 
-  const setupNav = () => {
-    const navToggle = /** @type {HTMLInputElement | null} */ (document.getElementById("nav-toggle"));
-    if (!navToggle) return;
-
-    const close = () => {
-      navToggle.checked = false;
-    };
-
-    document.querySelectorAll(".nav-menu a").forEach((a) => {
-      a.addEventListener("click", () => close());
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") close();
-    });
+  const getFragmentKey = () => {
+    const fragment = window.location.hash.slice(1);
+    if (!fragment) return "";
+    const params = new URLSearchParams(fragment);
+    return params.get("key") || "";
   };
 
-  const setupQuoteForm = () => {
-    const form = /** @type {HTMLFormElement | null} */ (document.getElementById("quote-form"));
-    if (!form) return;
+  const appendText = (parent, tagName, text, className) => {
+    const element = document.createElement(tagName);
+    element.textContent = text;
+    if (className) element.className = className;
+    parent.append(element);
+    return element;
+  };
 
-    const step1 = form.querySelector(".form-step-1");
-    const step2 = form.querySelector(".form-step-2");
-    const nextBtn = document.getElementById("next-step");
-    const prevBtn = document.getElementById("prev-step");
+  const appendActions = (parent, actions = []) => {
+    if (!actions.length) return;
+    const row = document.createElement("div");
+    row.className = "action-row";
 
-    const showStep = (stepNumber) => {
-      if (!step1 || !step2) return;
-      if (stepNumber === 1) {
-        step1.style.display = "";
-        step2.style.display = "none";
-      } else {
-        step1.style.display = "none";
-        step2.style.display = "";
+    actions.forEach((action) => {
+      const protocol = action.href.split(":")[0].toLowerCase();
+      if (!["https", "mailto", "tel"].includes(protocol)) return;
+      const link = document.createElement("a");
+      link.className = "action-link";
+      link.href = action.href;
+      link.textContent = action.label;
+      if (protocol === "https") {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
       }
-    };
+      row.append(link);
+    });
 
-    const requiredFieldsOk = (scopeEl) => {
-      if (!scopeEl) return true;
-      const required = scopeEl.querySelectorAll("[required]");
-      for (const el of required) {
-        // @ts-ignore - reportValidity exists on form controls
-        if (typeof el.reportValidity === "function") {
-          // @ts-ignore
-          if (!el.reportValidity()) return false;
-        }
-      }
-      return true;
-    };
+    parent.append(row);
+  };
 
-    if (nextBtn) {
-      nextBtn.addEventListener("click", () => {
-        if (!requiredFieldsOk(step1)) return;
-        showStep(2);
-      });
-    }
+  const appendWifi = (parent, wifi) => {
+    if (!wifi?.rows?.length) return;
+    const panel = document.createElement("div");
+    panel.className = "wifi-panel";
 
-    if (prevBtn) {
-      prevBtn.addEventListener("click", () => showStep(1));
-    }
+    wifi.rows.forEach((row) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "wifi-row";
+      appendText(wrapper, "span", row.label);
+      appendText(wrapper, "code", row.value);
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      const data = new FormData(form);
-      const get = (key) => String(data.get(key) ?? "").trim();
-      const lang = (form.getAttribute("data-lang") || document.documentElement.lang || "fr").toLowerCase();
-
-      const labels =
-        lang.startsWith("en")
-          ? {
-              subject: "Quote request",
-              project: "Project type",
-              budget: "Estimated budget",
-              name: "Name",
-              phone: "Phone",
-              message: "Message",
-              page: "Page",
-              copied: "Copied. You can paste it into a text message.",
-            }
-          : {
-              subject: "Demande de devis",
-              project: "Type de projet",
-              budget: "Budget estimé",
-              name: "Nom",
-              phone: "Téléphone",
-              message: "Message",
-              page: "Page",
-              copied: "Copié. Vous pouvez le coller dans un SMS.",
-            };
-
-      const project = get("project-type");
-      const subject = `${labels.subject}${project ? ` - ${project}` : ""}`;
-
-      const lines = [
-        `${labels.project}: ${project || "-"}`,
-        `${labels.budget}: ${get("budget") || "-"}`,
-        "",
-        `${labels.name}: ${get("name") || "-"}`,
-        `${labels.phone}: ${get("phone") || "-"}`,
-        "",
-        `${labels.message}:`,
-        get("message") || "-",
-        "",
-        `${labels.page}: ${window.location.href}`,
-      ];
-
-      const body = lines.join("\n");
-
-      const copyToClipboard = async (text) => {
-        try {
-          if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-            await navigator.clipboard.writeText(text);
-            return true;
+      if (row.copy) {
+        const copyButton = document.createElement("button");
+        copyButton.type = "button";
+        copyButton.className = "copy-button";
+        copyButton.textContent = "Copier";
+        copyButton.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(row.value);
+            copyButton.textContent = "Copié";
+            window.setTimeout(() => {
+              copyButton.textContent = "Copier";
+            }, 1800);
+          } catch {
+            copyButton.textContent = "Sélectionnez le texte";
           }
-        } catch (_) {
-          // ignore
-        }
-        try {
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          ta.setAttribute("readonly", "true");
-          ta.style.position = "fixed";
-          ta.style.top = "-9999px";
-          document.body.appendChild(ta);
-          ta.select();
-          const ok = document.execCommand("copy");
-          document.body.removeChild(ta);
-          return ok;
-        } catch (_) {
-          return false;
-        }
-      };
-
-      // Prefer SMS (when configured). Fallback to mailto when provided.
-      const sms = (form.getAttribute("data-sms") || "").trim();
-      const mailto = (form.getAttribute("data-mailto") || "").trim();
-
-      if (sms) {
-        copyToClipboard(body).then((ok) => {
-          if (ok) window.alert(labels.copied);
         });
-
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const sep = isIOS ? "&" : "?";
-        const smsUrl = `sms:${encodeURIComponent(sms)}${sep}body=${encodeURIComponent(body)}`;
-        window.location.href = smsUrl;
-        return;
+        wrapper.append(copyButton);
       }
 
-      if (mailto) {
-        const url = `mailto:${encodeURIComponent(mailto)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = url;
-      }
+      panel.append(wrapper);
     });
+
+    parent.append(panel);
   };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    setYear();
-    setupNav();
-    setupQuoteForm();
-  });
-})();
+  const appendCard = (grid, card, index) => {
+    const article = document.createElement("article");
+    article.className = "guide-card";
+    appendText(article, "span", String(index + 1).padStart(2, "0"), "card-number");
+    appendText(article, "h3", card.title);
 
+    (card.paragraphs || []).forEach((paragraph) => {
+      appendText(article, "p", paragraph, "card-copy");
+    });
+
+    if (card.items?.length) {
+      const list = document.createElement("ul");
+      list.className = "detail-list";
+      card.items.forEach((item) => appendText(list, "li", item));
+      article.append(list);
+    }
+
+    appendWifi(article, card.wifi);
+    if (card.notice) appendText(article, "p", card.notice, "notice");
+    appendActions(article, card.actions);
+    grid.append(article);
+  };
+
+  const renderGuide = (guide) => {
+    document.title = guide.meta?.documentTitle || "Guide voyageurs | Rose des Orpellières";
+    guideContent.replaceChildren();
+    guideNav.replaceChildren();
+
+    const hero = document.createElement("section");
+    hero.className = "guide-hero";
+    hero.id = "welcome";
+    const heroInner = document.createElement("div");
+    heroInner.className = "hero-inner";
+    appendText(heroInner, "p", guide.hero.eyebrow, "eyebrow");
+    appendText(heroInner, "h1", guide.hero.title);
+    appendText(heroInner, "p", guide.hero.lead, "hero-lead");
+    const heroNote = document.createElement("div");
+    heroNote.className = "hero-note";
+    appendText(heroNote, "b", guide.hero.noteMark);
+    appendText(heroNote, "span", guide.hero.note);
+    heroInner.append(heroNote);
+    hero.append(heroInner);
+    guideContent.append(hero);
+
+    const facts = document.createElement("section");
+    facts.className = "quick-facts";
+    facts.setAttribute("aria-label", "Informations essentielles");
+    guide.facts.forEach((fact) => {
+      const article = document.createElement("article");
+      article.className = "quick-fact";
+      appendText(article, "strong", fact.value);
+      appendText(article, "span", fact.label);
+      facts.append(article);
+    });
+    guideContent.append(facts);
+
+    guide.sections.forEach((section, sectionIndex) => {
+      const wrapper = document.createElement("section");
+      wrapper.className = `guide-section${section.dark ? " is-dark" : ""}`;
+      wrapper.id = section.id;
+      const inner = document.createElement("div");
+      inner.className = "section-inner";
+      const heading = document.createElement("header");
+      heading.className = "section-heading";
+      const titleBlock = document.createElement("div");
+      appendText(titleBlock, "span", String(sectionIndex + 1).padStart(2, "0"), "section-index");
+      appendText(titleBlock, "p", section.eyebrow, "eyebrow");
+      appendText(titleBlock, "h2", section.title);
+      heading.append(titleBlock);
+      appendText(heading, "p", section.intro, "section-intro");
+      inner.append(heading);
+
+      const grid = document.createElement("div");
+      grid.className = `card-grid${section.columns === 3 ? " is-three" : ""}`;
+      section.cards.forEach((card, cardIndex) => appendCard(grid, card, cardIndex));
+      inner.append(grid);
+      wrapper.append(inner);
+      guideContent.append(wrapper);
+
+      const navLink = document.createElement("a");
+      navLink.href = `#${section.id}`;
+      navLink.textContent = section.nav;
+      navLink.addEventListener("click", () => closeMenu());
+      guideNav.append(navLink);
+    });
+
+    const navSections = Array.from(document.querySelectorAll(".guide-section"));
+    if ("IntersectionObserver" in window) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        guideNav.querySelectorAll("a").forEach((link) => {
+          link.toggleAttribute("aria-current", link.getAttribute("href") === `#${visible.target.id}`);
+        });
+      }, { rootMargin: "-20% 0px -65%", threshold: [0, 0.2, 0.6] });
+      navSections.forEach((section) => sectionObserver.observe(section));
+    }
+  };
+
+  const closeMenu = () => {
+    guideNav.classList.remove("is-open");
+    menuButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menu-open");
+  };
+
+  menuButton.addEventListener("click", () => {
+    const open = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!open));
+    guideNav.classList.toggle("is-open", !open);
+    document.body.classList.toggle("menu-open", !open);
+  });
+
+  const decryptGuide = async (fragmentKey) => {
+    const keyBytes = decodeBase64Url(fragmentKey);
+    if (keyBytes.byteLength !== 32) throw new Error("Invalid key");
+
+    const response = await fetch("guide.enc.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Encrypted guide unavailable");
+    const payload = await response.json();
+    if (payload.version !== 1) throw new Error("Unsupported guide version");
+
+    const key = await crypto.subtle.importKey(
+      "raw",
+      keyBytes,
+      { name: "AES-GCM" },
+      false,
+      ["decrypt"]
+    );
+    const plaintext = await crypto.subtle.decrypt(
+      {
+        name: "AES-GCM",
+        iv: decodeBase64Url(payload.iv),
+        additionalData
+      },
+      key,
+      decodeBase64Url(payload.ciphertext)
+    );
+    return JSON.parse(decoder.decode(plaintext));
+  };
+
+  const openGuide = async () => {
+    const fragmentKey = getFragmentKey();
+    if (!fragmentKey) {
+      accessStatus.hidden = true;
+      retryButton.hidden = true;
+      return;
+    }
+
+    accessMessage.textContent = "Votre QR a été reconnu. Le guide est déchiffré uniquement dans ce navigateur.";
+    accessStatus.hidden = false;
+    retryButton.hidden = true;
+
+    try {
+      const guide = await decryptGuide(fragmentKey);
+      renderGuide(guide);
+      accessScreen.hidden = true;
+      guideShell.hidden = false;
+    } catch {
+      accessStatus.hidden = true;
+      retryButton.hidden = false;
+      accessMessage.textContent = "Ce lien est incomplet ou n’est plus valable. Scannez à nouveau le QR code présent dans l’appartement.";
+    }
+  };
+
+  retryButton.addEventListener("click", openGuide);
+  window.addEventListener("hashchange", () => {
+    closeMenu();
+    openGuide();
+  });
+
+  openGuide();
+});
