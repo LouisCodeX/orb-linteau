@@ -237,6 +237,73 @@ button {
   display: none;
 }
 
+.wifi-priority {
+  display: grid;
+  min-height: calc(100svh - 84px);
+  padding: clamp(3.5rem, 8vw, 7rem) 6vw;
+  align-items: center;
+  scroll-margin-top: 84px;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(255, 250, 246, 0.8), transparent 34%),
+    linear-gradient(135deg, #f1ddd7 0%, #d7aaa1 100%);
+}
+
+.wifi-priority-inner {
+  display: grid;
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  align-items: center;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: clamp(3rem, 8vw, 8rem);
+}
+
+.wifi-priority-icon {
+  display: inline-grid;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 2rem;
+  color: var(--green);
+  border: 1px solid rgba(41, 75, 61, 0.35);
+  border-radius: 50%;
+  place-items: center;
+}
+
+.wifi-priority-icon svg {
+  width: 31px;
+  height: 31px;
+}
+
+.wifi-priority h1 {
+  max-width: 600px;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(3.7rem, 6.5vw, 6.8rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+}
+
+.wifi-priority-intro {
+  max-width: 530px;
+  margin: 2rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+}
+
+.wifi-priority-card {
+  padding: clamp(1.2rem, 3vw, 2.5rem);
+  background: rgba(255, 250, 246, 0.92);
+  box-shadow: var(--shadow);
+}
+
+.wifi-priority-card .wifi-panel {
+  margin-top: 0;
+}
+
+.wifi-priority-card > .notice {
+  margin-bottom: 0;
+}
+
 .guide-hero {
   display: grid;
   min-height: calc(100svh - 84px);
@@ -1005,6 +1072,18 @@ button {
     backdrop-filter: none;
   }
 
+  .wifi-priority {
+    min-height: 0;
+  }
+
+  .wifi-priority-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .wifi-priority-card {
+    width: min(100%, 620px);
+  }
+
   .guide-hero {
     grid-template-columns: 1fr;
   }
@@ -1140,6 +1219,33 @@ button {
   .site-header {
     min-height: 72px;
     padding: 0 1rem;
+  }
+
+  .wifi-priority {
+    padding: 3.5rem 1.2rem 4.5rem;
+    scroll-margin-top: 72px;
+  }
+
+  .wifi-priority-inner {
+    gap: 2.5rem;
+  }
+
+  .wifi-priority-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1.5rem;
+  }
+
+  .wifi-priority h1 {
+    font-size: clamp(3.2rem, 14vw, 4.4rem);
+  }
+
+  .wifi-priority-intro {
+    margin-top: 1.4rem;
+  }
+
+  .wifi-priority-card {
+    padding: 0.8rem;
   }
 
   .guide-nav {

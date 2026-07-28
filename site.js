@@ -147,8 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let settingsUrl = "";
     if (/Android/i.test(userAgent)) {
       settingsUrl = "intent:#Intent;action=android.settings.WIFI_SETTINGS;end";
-    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-      settingsUrl = "App-Prefs:root=WIFI";
     }
     if (!settingsUrl) return false;
     const link = document.createElement("a");
@@ -354,6 +352,34 @@ document.addEventListener("DOMContentLoaded", () => {
     guideContent.replaceChildren();
     guideNav.replaceChildren();
 
+    if (guide.priorityWifi) {
+      const wifiSection = document.createElement("section");
+      wifiSection.className = "wifi-priority";
+      wifiSection.id = "wifi-start";
+      const wifiInner = document.createElement("div");
+      wifiInner.className = "wifi-priority-inner";
+      const wifiCopy = document.createElement("div");
+      wifiCopy.className = "wifi-priority-copy";
+      appendIcon(wifiCopy, "wifi", "wifi-priority-icon");
+      appendText(wifiCopy, "p", guide.priorityWifi.eyebrow, "eyebrow");
+      appendText(wifiCopy, "h1", guide.priorityWifi.title);
+      appendText(wifiCopy, "p", guide.priorityWifi.intro, "wifi-priority-intro");
+      const wifiCard = document.createElement("div");
+      wifiCard.className = "wifi-priority-card";
+      appendWifi(wifiCard, guide.priorityWifi.wifi);
+      if (guide.priorityWifi.notice) appendText(wifiCard, "p", guide.priorityWifi.notice, "notice");
+      wifiInner.append(wifiCopy, wifiCard);
+      wifiSection.append(wifiInner);
+      guideContent.append(wifiSection);
+
+      const wifiNavButton = document.createElement("button");
+      wifiNavButton.type = "button";
+      wifiNavButton.dataset.target = "wifi-start";
+      wifiNavButton.textContent = "Wi-Fi";
+      wifiNavButton.addEventListener("click", () => scrollToSection("wifi-start"));
+      guideNav.append(wifiNavButton);
+    }
+
     const hero = document.createElement("section");
     hero.className = "guide-hero";
     hero.id = "welcome";
@@ -424,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
       guideNav.append(navButton);
     });
 
-    const navSections = Array.from(document.querySelectorAll(".guide-section"));
+    const navSections = Array.from(document.querySelectorAll(".wifi-priority, .guide-section"));
     if ("IntersectionObserver" in window) {
       const sectionObserver = new IntersectionObserver((entries) => {
         const visible = entries
@@ -451,7 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   brand.addEventListener("click", (event) => {
     event.preventDefault();
-    scrollToSection("welcome");
+    scrollToSection(document.getElementById("wifi-start") ? "wifi-start" : "welcome");
   });
 
   document.addEventListener("keydown", (event) => {
