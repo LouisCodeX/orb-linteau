@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (key) return { type: "key", value: key };
     const access = params.get("a");
     if (access) return { type: "access", value: access };
+    if (/^[A-Za-z0-9_-]{12,128}$/.test(fragment)) {
+      return { type: "access", value: fragment };
+    }
     return null;
   };
 
@@ -594,17 +597,27 @@ document.addEventListener("DOMContentLoaded", () => {
       false,
       ["decrypt"]
     );
-    const keyBytes = await crypto.subtle.decrypt(
-      {
-        name: "AES-GCM",
-        iv: decodeBase64Url(payload.access.iv),
-        additionalData: encoder.encode("rose-guide-access-v1")
-      },
-      wrappingKey,
-      decodeBase64Url(payload.access.wrappedKey)
-    );
-    if (keyBytes.byteLength !== 32) throw new Error("Invalid wrapped key");
-    return new Uint8Array(keyBytes);
+    const accessEnvelopes = [
+      payload.access,
+      ...(Array.isArray(payload.accessLinks) ? payload.accessLinks : [])
+    ];
+    for (const access of accessEnvelopes) {
+      try {
+        const keyBytes = await crypto.subtle.decrypt(
+          {
+            name: "AES-GCM",
+            iv: decodeBase64Url(access.iv),
+            additionalData: encoder.encode("rose-guide-access-v1")
+          },
+          wrappingKey,
+          decodeBase64Url(access.wrappedKey)
+        );
+        if (keyBytes.byteLength === 32) return new Uint8Array(keyBytes);
+      } catch {
+        // Try the next valid access link without revealing which token matched.
+      }
+    }
+    throw new Error("Invalid wrapped key");
   };
 
   const decryptGuide = async (credential) => {
