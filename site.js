@@ -8,11 +8,98 @@ document.addEventListener("DOMContentLoaded", () => {
   const guideShell = document.querySelector("#guide-shell");
   const guideContent = document.querySelector("#guide-content");
   const guideNav = document.querySelector("#guide-nav");
+  const siteHeader = document.querySelector(".site-header");
   const menuButton = document.querySelector("#menu-button");
-  const brand = document.querySelector(".brand");
+  const brand = document.querySelector("#brand");
+  const languageSwitcher = document.querySelector("#language-switcher");
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
   const additionalData = encoder.encode("rose-guide-v1");
+  const supportedLanguages = ["fr", "en"];
+  const uiTranslations = {
+    fr: {
+      skip: "Aller au guide",
+      accessDocumentTitle: "Guide voyageurs | Rose des Orpellières",
+      accessTitle: ["Guide réservé", "aux voyageurs"],
+      accessMessage: "Scannez le QR code présent dans l’appartement pour ouvrir votre guide de séjour.",
+      accessOpening: "Ouverture du guide",
+      retry: "Réessayer",
+      security: "Le contenu du guide est chiffré et sa clé n’est jamais envoyée au serveur.",
+      brandSubtitle: "Guide voyageurs privé",
+      brandAria: "Retour au début du guide",
+      language: "Langue",
+      menu: "Menu",
+      summary: "Sommaire du séjour",
+      legal: "Mentions légales",
+      recognized: "Votre QR a été reconnu. Le guide est déchiffré uniquement dans ce navigateur.",
+      invalid: "Ce lien est incomplet ou n’est plus valable. Scannez à nouveau le QR code présent dans l’appartement.",
+      copy: "Copier",
+      copied: "Copié",
+      select: "Sélectionnez",
+      qrEyebrow: "Pour les autres voyageurs",
+      qrTitle: "Partager le Wi-Fi",
+      qrIntro: "Les autres voyageurs scannent ce QR avec l’appareil photo de leur téléphone.",
+      qrShare: "Partager le QR",
+      qrDownload: "Télécharger le QR",
+      qrShareTitle: "Wi-Fi Rose des Orpellières",
+      qrShareText: "Scannez ce QR pour rejoindre {network}.",
+      qrUnavailable: "QR indisponible",
+      qrButton: "Afficher le QR Wi-Fi",
+      close: "Fermer",
+      quickStart: "Démarrage rapide",
+      essentialInfo: "Informations essentielles",
+      whatsapp: "sur WhatsApp au"
+    },
+    en: {
+      skip: "Skip to the guide",
+      accessDocumentTitle: "Private guest guide | Rose des Orpellières",
+      accessTitle: ["Private guide", "for guests"],
+      accessMessage: "Scan the QR code in the apartment to open your private guest guide.",
+      accessOpening: "Opening the guide",
+      retry: "Try again",
+      security: "The guide is encrypted and its key is never sent to the server.",
+      brandSubtitle: "Private guest guide",
+      brandAria: "Return to the start of the guide",
+      language: "Language",
+      menu: "Menu",
+      summary: "Stay guide contents",
+      legal: "Legal notice",
+      recognized: "Your QR code was recognized. The guide is decrypted only in this browser.",
+      invalid: "This link is incomplete or no longer valid. Scan the QR code in the apartment again.",
+      copy: "Copy",
+      copied: "Copied",
+      select: "Select",
+      qrEyebrow: "For other guests",
+      qrTitle: "Share the Wi-Fi",
+      qrIntro: "Other guests can scan this QR code with their phone camera.",
+      qrShare: "Share QR code",
+      qrDownload: "Download QR code",
+      qrShareTitle: "Rose des Orpellières Wi-Fi",
+      qrShareText: "Scan this QR code to join {network}.",
+      qrUnavailable: "QR unavailable",
+      qrButton: "Show Wi-Fi QR code",
+      close: "Close",
+      quickStart: "Quick start",
+      essentialInfo: "Essential information",
+      whatsapp: "on WhatsApp at"
+    }
+  };
+  const readSavedLanguage = () => {
+    try {
+      return window.localStorage.getItem("rose-guide-language");
+    } catch {
+      return null;
+    }
+  };
+  const browserLanguage = navigator.languages
+    ?.map((language) => language.toLowerCase().split("-")[0])
+    .find((language) => supportedLanguages.includes(language));
+  let activeLanguage = supportedLanguages.includes(readSavedLanguage())
+    ? readSavedLanguage()
+    : (browserLanguage || "fr");
+  let languageGuides = null;
+  let sectionObserver = null;
+  const text = (key) => uiTranslations[activeLanguage]?.[key] || uiTranslations.fr[key] || key;
 
   const iconPaths = {
     location: "M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Zm0-9.2A2.8 2.8 0 1 0 12 6a2.8 2.8 0 0 0 0 5.8Z",
@@ -67,6 +154,31 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   };
 
+  const applyStaticTranslations = () => {
+    document.documentElement.lang = activeLanguage;
+    if (guideShell.hidden) document.title = text("accessDocumentTitle");
+    document.querySelector("#skip-link").textContent = text("skip");
+    const accessTitle = document.querySelector("#access-title");
+    const [firstLine, secondLine] = text("accessTitle");
+    accessTitle.replaceChildren(firstLine, document.createElement("br"), secondLine);
+    accessMessage.textContent = text("accessMessage");
+    document.querySelector("#access-status-label").textContent = text("accessOpening");
+    retryButton.textContent = text("retry");
+    document.querySelector("#access-security").textContent = text("security");
+    document.querySelector("#brand-subtitle").textContent = text("brandSubtitle");
+    brand.setAttribute("aria-label", text("brandAria"));
+    languageSwitcher.setAttribute("aria-label", text("language"));
+    menuButton.querySelector("b").textContent = text("menu");
+    guideNav.setAttribute("aria-label", text("summary"));
+    guideNav.dataset.title = text("summary");
+    document.querySelector("#legal-link").textContent = text("legal");
+    languageSwitcher.querySelectorAll("[data-language]").forEach((button) => {
+      const language = button.dataset.language;
+      button.setAttribute("aria-pressed", String(language === activeLanguage));
+      button.disabled = Boolean(languageGuides && !languageGuides[language]);
+    });
+  };
+
   const appendText = (parent, tagName, text, className) => {
     const element = document.createElement(tagName);
     element.textContent = text;
@@ -101,9 +213,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (returnFocus) menuButton.focus();
   };
 
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollToSection = (id, behavior = "smooth") => {
+    const section = document.getElementById(id);
     closeMenu();
+    if (section) {
+      const top = section.getBoundingClientRect().top + window.scrollY - siteHeader.offsetHeight;
+      window.scrollTo({ top: Math.max(0, top), behavior });
+    }
   };
 
   const appendActions = (parent, actions = []) => {
@@ -154,16 +270,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "copy-button";
-    button.textContent = "Copier";
+    button.textContent = text("copy");
     button.addEventListener("click", async () => {
       try {
         await copyValue(value);
-        button.textContent = "Copié";
+        button.textContent = text("copied");
         window.setTimeout(() => {
-          button.textContent = "Copier";
+          button.textContent = text("copy");
         }, 1800);
       } catch {
-        button.textContent = "Sélectionnez";
+        button.textContent = text("select");
       }
     });
     parent.append(button);
@@ -228,14 +344,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButton = document.createElement("button");
     closeButton.type = "button";
     closeButton.className = "wifi-qr-close";
-    closeButton.setAttribute("aria-label", "Fermer");
+    closeButton.setAttribute("aria-label", text("close"));
     closeButton.textContent = "×";
-    appendText(card, "p", "Pour les autres voyageurs", "eyebrow");
-    appendText(card, "h2", "Partager le Wi-Fi");
+    appendText(card, "p", text("qrEyebrow"), "eyebrow");
+    appendText(card, "h2", text("qrTitle"));
     appendText(
       card,
       "p",
-      "Les autres voyageurs scannent ce QR avec l’appareil photo de leur téléphone.",
+      text("qrIntro"),
       "wifi-qr-intro"
     );
     const canvas = createWifiQrCanvas(network, password);
@@ -253,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const primaryButton = document.createElement("button");
     primaryButton.type = "button";
     primaryButton.className = "wifi-qr-primary";
-    primaryButton.textContent = canShareFile ? "Partager le QR" : "Télécharger le QR";
+    primaryButton.textContent = canShareFile ? text("qrShare") : text("qrDownload");
     primaryButton.addEventListener("click", async () => {
       if (!canShareFile) {
         downloadWifiQr(imageBlob);
@@ -261,8 +377,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       try {
         await navigator.share({
-          title: "Wi-Fi Rose des Orpellières",
-          text: `Scannez ce QR pour rejoindre ${network}.`,
+          title: text("qrShareTitle"),
+          text: text("qrShareText").replace("{network}", network),
           files: [file]
         });
       } catch (error) {
@@ -309,10 +425,10 @@ document.addEventListener("DOMContentLoaded", () => {
       shareButton.type = "button";
       shareButton.className = "wifi-share-button";
       appendIcon(shareButton, "wifi", "wifi-share-icon");
-      appendText(shareButton, "span", "Afficher le QR Wi-Fi");
+      appendText(shareButton, "span", text("qrButton"));
       shareButton.addEventListener("click", () => {
         showWifiQr(network, password).catch(() => {
-          shareButton.querySelector("span:last-child").textContent = "QR indisponible";
+          shareButton.querySelector("span:last-child").textContent = text("qrUnavailable");
         });
       });
       shareRow.append(shareButton);
@@ -386,7 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (card.quick?.length) {
       const quick = document.createElement("section");
       quick.className = "manual-quick";
-      appendText(quick, "h4", "Démarrage rapide");
+      appendText(quick, "h4", text("quickStart"));
       appendList(quick, card.quick, "numbered-list");
       body.append(quick);
     }
@@ -436,16 +552,17 @@ document.addEventListener("DOMContentLoaded", () => {
     link.href = contact.href;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", `${contact.label} sur WhatsApp au ${contact.number}`);
+    link.setAttribute("aria-label", `${contact.label} ${text("whatsapp")} ${contact.number}`);
     appendIcon(link, "phone");
-    const text = document.createElement("span");
-    appendText(text, "b", contact.label);
-    appendText(text, "small", "WhatsApp");
-    link.append(text);
+    const contactText = document.createElement("span");
+    appendText(contactText, "b", contact.label);
+    appendText(contactText, "small", "WhatsApp");
+    link.append(contactText);
     guideShell.append(link);
   };
 
   const renderGuide = (guide) => {
+    sectionObserver?.disconnect();
     document.title = guide.meta?.documentTitle || "Guide voyageurs | Rose des Orpellières";
     guideContent.replaceChildren();
     guideNav.replaceChildren();
@@ -500,7 +617,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const facts = document.createElement("section");
     facts.className = "quick-facts";
-    facts.setAttribute("aria-label", "Informations essentielles");
+    facts.setAttribute("aria-label", text("essentialInfo"));
     guide.facts.forEach((fact) => {
       const article = document.createElement("article");
       article.className = "quick-fact";
@@ -550,13 +667,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const navSections = Array.from(document.querySelectorAll(".wifi-priority, .guide-section"));
     if ("IntersectionObserver" in window) {
-      const sectionObserver = new IntersectionObserver((entries) => {
+      sectionObserver = new IntersectionObserver((entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (!visible) return;
         guideNav.querySelectorAll("button").forEach((button) => {
-          button.toggleAttribute("aria-current", button.dataset.target === visible.target.id);
+          if (button.dataset.target === visible.target.id) {
+            button.setAttribute("aria-current", "true");
+          } else {
+            button.removeAttribute("aria-current");
+          }
         });
       }, { rootMargin: "-20% 0px -65%", threshold: [0, 0.2, 0.6] });
       navSections.forEach((section) => sectionObserver.observe(section));
@@ -564,6 +685,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     appendFloatingContact(guide.meta?.whatsapp);
   };
+
+  const setLanguage = (language, { persist = true, render = true } = {}) => {
+    if (!supportedLanguages.includes(language)) return;
+    if (languageGuides && !languageGuides[language]) return;
+    const currentTarget = guideNav.querySelector("[aria-current='true']")?.dataset.target;
+    activeLanguage = language;
+    if (persist) {
+      try {
+        window.localStorage.setItem("rose-guide-language", language);
+      } catch {
+        // The language still changes when private browsing blocks storage.
+      }
+    }
+    applyStaticTranslations();
+    if (render && languageGuides) {
+      renderGuide(languageGuides[language]);
+      closeMenu();
+      if (currentTarget) {
+        window.requestAnimationFrame(() => {
+          scrollToSection(currentTarget, "auto");
+        });
+      }
+    }
+  };
+
+  languageSwitcher.querySelectorAll("[data-language]").forEach((button) => {
+    button.addEventListener("click", () => setLanguage(button.dataset.language));
+  });
 
   menuButton.addEventListener("click", () => {
     const willOpen = menuButton.getAttribute("aria-expanded") !== "true";
@@ -642,21 +791,27 @@ document.addEventListener("DOMContentLoaded", () => {
       retryButton.hidden = true;
       return;
     }
-    accessMessage.textContent = "Votre QR a été reconnu. Le guide est déchiffré uniquement dans ce navigateur.";
+    accessMessage.textContent = text("recognized");
     accessStatus.hidden = false;
     retryButton.hidden = true;
     try {
-      const guide = await decryptGuide(credential);
-      renderGuide(guide);
+      const decryptedGuide = await decryptGuide(credential);
+      languageGuides = decryptedGuide.languages || { fr: decryptedGuide };
+      const preferredLanguage = languageGuides[activeLanguage]
+        ? activeLanguage
+        : (decryptedGuide.defaultLanguage || Object.keys(languageGuides)[0]);
+      setLanguage(preferredLanguage, { persist: false, render: false });
+      renderGuide(languageGuides[preferredLanguage]);
       accessScreen.hidden = true;
       guideShell.hidden = false;
     } catch {
       accessStatus.hidden = true;
       retryButton.hidden = false;
-      accessMessage.textContent = "Ce lien est incomplet ou n’est plus valable. Scannez à nouveau le QR code présent dans l’appartement.";
+      accessMessage.textContent = text("invalid");
     }
   };
 
+  applyStaticTranslations();
   retryButton.addEventListener("click", openGuide);
   openGuide();
 });

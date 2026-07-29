@@ -17,39 +17,45 @@
     <script src="site.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#guide-content">Aller au guide</a>
+    <a class="skip-link" id="skip-link" href="#guide-content">Aller au guide</a>
 
     <main class="access-screen" id="access-screen" aria-live="polite">
       <div class="access-card">
         <img src="logo-rose.svg" width="88" height="88" alt="">
         <p class="eyebrow">Rose des Orpellières</p>
-        <h1>Guide réservé<br>aux voyageurs</h1>
+        <h1 id="access-title">Guide réservé<br>aux voyageurs</h1>
         <p id="access-message">
           Scannez le QR code présent dans l’appartement pour ouvrir votre guide de séjour.
         </p>
         <div class="access-status" id="access-status" hidden>
           <span aria-hidden="true"></span>
-          <b>Ouverture du guide</b>
+          <b id="access-status-label">Ouverture du guide</b>
         </div>
         <button class="retry-button" id="retry-button" type="button" hidden>Réessayer</button>
-        <small>Le contenu du guide est chiffré et sa clé n’est jamais envoyée au serveur.</small>
+        <small id="access-security">Le contenu du guide est chiffré et sa clé n’est jamais envoyée au serveur.</small>
       </div>
     </main>
 
     <div class="guide-shell" id="guide-shell" hidden>
       <header class="site-header">
-        <a class="brand" href="" aria-label="Retour au début du guide">
+        <a class="brand" id="brand" href="" aria-label="Retour au début du guide">
           <img src="logo-rose.svg" width="48" height="48" alt="">
           <span>
             <strong>Rose des Orpellières</strong>
-            <small>Guide voyageurs privé</small>
+            <small id="brand-subtitle">Guide voyageurs privé</small>
           </span>
         </a>
-        <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="guide-nav">
-          <span></span><span></span>
-          <b>Menu</b>
-        </button>
         <nav class="guide-nav" id="guide-nav" aria-label="Sommaire"></nav>
+        <div class="header-actions">
+          <div class="language-switcher" id="language-switcher" role="group" aria-label="Langue">
+            <button type="button" data-language="fr" lang="fr" aria-label="Français">FR</button>
+            <button type="button" data-language="en" lang="en" aria-label="English">EN</button>
+          </div>
+          <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="guide-nav">
+            <span></span><span></span>
+            <b>Menu</b>
+          </button>
+        </div>
       </header>
 
       <main id="guide-content" tabindex="-1"></main>
@@ -57,12 +63,15 @@
       <footer class="site-footer">
         <img src="logo-rose.svg" width="52" height="52" alt="">
         <p>Rose des Orpellières · Sérignan</p>
-        <a href="https://orb-chaux.fr/mentions-legales/" target="_blank" rel="noopener noreferrer">Mentions légales</a>
+        <a id="legal-link" href="https://orb-chaux.fr/mentions-legales/" target="_blank" rel="noopener noreferrer">Mentions légales</a>
       </footer>
     </div>
 
     <noscript>
-      <p class="noscript-message">JavaScript doit être activé pour déchiffrer ce guide privé.</p>
+      <p class="noscript-message">
+        <span lang="fr">JavaScript doit être activé pour déchiffrer ce guide privé.</span><br>
+        <span lang="en">JavaScript must be enabled to decrypt this private guide.</span>
+      </p>
     </noscript>
   </body>
 </html>

@@ -175,7 +175,7 @@ button {
   align-items: center;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 250, 246, 0.95);
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   backdrop-filter: blur(18px);
 }
 
@@ -203,6 +203,44 @@ button {
   font-size: 0.52rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.language-switcher {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--ivory);
+}
+
+.language-switcher button {
+  min-width: 32px;
+  height: 28px;
+  padding: 0 0.45rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: transparent;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.language-switcher button[aria-pressed="true"] {
+  color: white;
+  background: var(--green);
+}
+
+.language-switcher button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 .guide-nav {
@@ -1238,7 +1276,7 @@ button {
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.16em;
-    content: "SOMMAIRE DU SÉJOUR";
+    content: attr(data-title);
     text-transform: uppercase;
   }
 
@@ -1294,6 +1332,16 @@ button {
   .site-header {
     min-height: 72px;
     padding: 0 1rem;
+  }
+
+  .header-actions {
+    gap: 0.2rem;
+  }
+
+  .language-switcher button {
+    min-width: 29px;
+    height: 27px;
+    padding: 0 0.35rem;
   }
 
   .wifi-priority {
@@ -1483,6 +1531,12 @@ button {
   .wifi-qr-card {
     max-height: calc(100dvh - 1rem);
     padding: 2.6rem 1.25rem 1.25rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand > span {
+    display: none;
   }
 }
 

@@ -11,6 +11,7 @@ This GitHub Pages site is an encrypted guest guide for confirmed travelers.
 - Neither the key, the short token, nor the plaintext source may be committed.
 - Search engines are blocked with both `robots.txt` and page-level `noindex` directives.
 - The Wi-Fi sharing QR is generated locally in the browser after decryption; credentials are never sent to a QR service.
+- The encrypted payload contains French and English guides. The browser language is selected automatically and can be changed with the `FR` / `EN` switcher.
 
 The root URL without a key displays only a generic access screen.
 
@@ -18,7 +19,7 @@ The root URL without a key displays only a generic access screen.
 
 ## Updating the guide
 
-Edit the private source stored outside this repository and re-encrypt it with the existing guide key. Preserve the `access` and `accessLinks` envelopes in `guide.enc.json` so the physical QR and existing short links continue to work. Rotating the guide key requires generating new access links and QR codes.
+Edit both private language sources stored outside this repository, rebuild the multilingual payload, and re-encrypt it with the existing guide key. Preserve the `access` and `accessLinks` envelopes in `guide.enc.json` so the physical QR and existing short links continue to work. Rotating the guide key requires generating new access links and QR codes.
 
 ## Public site
 
